@@ -173,6 +173,7 @@ function endQuiz() {
   nextButton.classList.add('hidden');
   scoreContainer.classList.remove('hidden');
   scoreElement.innerText = `${score} / ${questions.length}`;
+  backToMainPageButton.classList.remove('hidden'); // Show the "Back to Main Page" button
 }
 
 // Go back to the main page
@@ -183,6 +184,7 @@ function goBackToMainPage() {
 
   // Ensure the Start Quiz button is visible again when going back to the main page
   startQuizButton.classList.remove('hidden');
+  backToMainPageButton.classList.add('hidden'); // Hide the "Back to Main Page" button
 }
 
 // Show all questions with editing and deleting options
