@@ -1,4 +1,3 @@
-// Store questions in localStorage
 let questions = JSON.parse(localStorage.getItem("questions")) || [];
 let currentQuestionIndex = 0;
 let score = 0;
@@ -30,26 +29,33 @@ function saveQuestions() {
   localStorage.setItem("questions", JSON.stringify(questions));
 }
 
-// Load questions and display them
+// Load questions and display them in a structured format
 function loadQuestions() {
   questionList.innerHTML = ''; // Clear the list before adding new ones
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
-    questionItem.classList.add('question-item');
-    questionItem.innerText = question.question;
-
+    questionItem.classList.add('question-item'); // Add a class for styling
+    questionItem.innerHTML = `<strong>${question.question}</strong><br>`;
+    
+    // Create Answer Buttons
+    question.answers.forEach(answer => {
+      const answerItem = document.createElement('p');
+      answerItem.innerText = answer.text;
+      questionItem.appendChild(answerItem);
+    });
+    
     // Edit Button
     const editButton = document.createElement('button');
     editButton.classList.add('edit-btn');
     editButton.innerText = 'Edit';
     editButton.onclick = () => editQuestion(index);
-
+    
     // Delete Button
     const deleteButton = document.createElement('button');
     deleteButton.classList.add('delete-btn');
     deleteButton.innerText = 'Delete';
     deleteButton.onclick = () => deleteQuestion(index);
-
+    
     questionItem.appendChild(editButton);
     questionItem.appendChild(deleteButton);
     questionList.appendChild(questionItem);
@@ -197,7 +203,8 @@ startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 showQuestionsButton.addEventListener('click', showAllQuestions);
 
-// Initialize the app by loading questions and setting up the interface
-questionList.classList.add('hidden'); // Hide questions initially
-showQuestionsButton.classList.remove('hidden'); // Show the button to trigger showing questions
-startQuizButton.classList.remove('hidden'); // Ensure the Start Quiz button is only visible on the main page
+// Initial Setup: Hide unnecessary sections
+quizSection.classList.add('hidden');
+questionList.classList.add('hidden');
+
+loadQuestions(); // Load existing questions on page load
