@@ -23,6 +23,7 @@ const startQuizButton = document.getElementById('start-quiz-btn');
 const quizSection = document.getElementById('quiz-section');
 const mainPage = document.getElementById('main-page');
 const backToMainPageButton = document.getElementById('back-to-main-page-btn');
+const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-main-page-from-show-questions-btn');
 
 // Save questions to localStorage
 function saveQuestions() {
@@ -93,6 +94,13 @@ function editQuestion(index) {
     if (answer.correct) correctAnswerSelect.value = i + 1;
   });
   editingIndex = index;
+
+  // Show the form for editing question
+  mainPage.classList.add('hidden');
+  quizSection.classList.add('hidden');
+  questionForm.classList.remove('hidden');
+  backToMainPageButton.classList.remove('hidden');
+  startQuizButton.classList.add('hidden');
 }
 
 // Delete a question
@@ -192,9 +200,18 @@ function showAllQuestions() {
   loadQuestions(); // Ensure questions are loaded
   questionList.classList.remove('hidden'); // Show the questions list
   showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
-  backToMainPageButton.classList.remove('hidden'); // Show the Back to Main Page button
+  backToMainPageFromShowQuestionsButton.classList.remove('hidden'); // Show the Back to Main Page button after questions list
   questionForm.classList.add('hidden'); // Hide the question form
   startQuizButton.classList.add('hidden'); // Hide the Start Quiz button
+}
+
+// Go back to the main page from show all questions view
+function goBackToMainPageFromShowQuestions() {
+  questionList.classList.add('hidden');
+  showQuestionsButton.classList.remove('hidden'); // Show the Show All Questions button again
+  backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide the "Back to Main Page" button
+  questionForm.classList.remove('hidden'); // Show the question form again
+  startQuizButton.classList.remove('hidden'); // Show the Start Quiz button
 }
 
 // Event Listeners
@@ -207,10 +224,12 @@ questionForm.addEventListener('submit', addOrUpdateQuestion);
 startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 showQuestionsButton.addEventListener('click', showAllQuestions);
+backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
 
 // Initial Setup: Hide unnecessary sections
 quizSection.classList.add('hidden');
 questionList.classList.add('hidden');
 backToMainPageButton.classList.add('hidden'); // Hide "Back to Main Page" initially
+backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide "Back to Main Page" from show all questions view initially
 
 loadQuestions(); // Load existing questions on page load
