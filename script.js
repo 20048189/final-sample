@@ -190,6 +190,7 @@ function showAllQuestions() {
   loadQuestions(); // Ensure questions are loaded
   questionList.classList.remove('hidden');
   showQuestionsButton.classList.add('hidden'); // Hide Show All Questions button after clicking
+  backToMainPageButton.classList.remove('hidden'); // Show the Back to Main Page button
 }
 
 // Event Listeners
@@ -206,5 +207,6 @@ showQuestionsButton.addEventListener('click', showAllQuestions);
 // Initial Setup: Hide unnecessary sections
 quizSection.classList.add('hidden');
 questionList.classList.add('hidden');
+backToMainPageButton.classList.add('hidden'); // Hide "Back to Main Page" initially
 
 loadQuestions(); // Load existing questions on page load
