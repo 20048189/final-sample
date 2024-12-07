@@ -83,6 +83,11 @@ function addOrUpdateQuestion(event) {
   saveQuestions();
   questionForm.reset();
   loadQuestions(); // Ensure updated questions are shown
+  // Go back to main page after updating
+  showQuestionsButton.classList.remove('hidden'); 
+  questionForm.classList.add('hidden');
+  backToMainPageButton.classList.add('hidden');
+  startQuizButton.classList.remove('hidden');
 }
 
 // Edit an existing question
@@ -95,7 +100,7 @@ function editQuestion(index) {
   });
   editingIndex = index;
 
-  // Show the form for editing question
+  // Hide the main page and quiz section
   mainPage.classList.add('hidden');
   quizSection.classList.add('hidden');
   questionForm.classList.remove('hidden');
