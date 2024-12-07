@@ -178,7 +178,9 @@ function goBackToMainPage() {
   quizSection.classList.add('hidden');
   questionManagementSection.classList.remove('hidden');
   resetState();
-  startQuizButton.classList.remove('hidden'); // Ensure the Start Quiz button is visible again
+  
+  // Ensure the Start Quiz button is visible again when going back to the main page
+  startQuizButton.classList.remove('hidden');
 }
 
 // Show all questions with editing and deleting options
