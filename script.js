@@ -19,10 +19,10 @@ const answerInputs = [
 ];
 const correctAnswerSelect = document.getElementById('correct-answer');
 const questionList = document.getElementById('question-list');
+const showQuestionsButton = document.getElementById('show-questions-btn');
 const startQuizButton = document.getElementById('start-quiz-btn');
 const quizSection = document.getElementById('quiz-section');
-const questionManagementSection = document.getElementById('question-management');
-const showQuestionsButton = document.getElementById('show-questions-btn');
+const mainPage = document.getElementById('main-page');
 const backToMainPageButton = document.getElementById('back-to-main-page-btn');
 
 // Save questions to localStorage
@@ -101,8 +101,8 @@ function startQuiz() {
     return;
   }
 
-  // Hide the question management section and show the quiz section
-  questionManagementSection.classList.add('hidden');
+  // Hide the main page and show the quiz section
+  mainPage.classList.add('hidden');
   quizSection.classList.remove('hidden');
 
   // Hide the Start Quiz button as the quiz is starting
@@ -167,18 +167,12 @@ function endQuiz() {
   scoreElement.innerText = `${score} / ${questions.length}`;
 }
 
-// Restart the quiz
-function restartQuiz() {
-  scoreContainer.classList.add('hidden');
-  startQuiz();
-}
-
-// Go back to the main page (question management section)
+// Go back to the main page
 function goBackToMainPage() {
   quizSection.classList.add('hidden');
-  questionManagementSection.classList.remove('hidden');
+  mainPage.classList.remove('hidden');
   resetState();
-  
+
   // Ensure the Start Quiz button is visible again when going back to the main page
   startQuizButton.classList.remove('hidden');
 }
