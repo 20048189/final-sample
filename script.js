@@ -236,5 +236,4 @@ quizSection.classList.add('hidden');
 questionList.classList.add('hidden');
 backToMainPageButton.classList.add('hidden'); // Hide "Back to Main Page" initially
 backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide "Back to Main Page" from show all questions view initially
-
 loadQuestions(); // Load existing questions on page load
