@@ -8,23 +8,9 @@
 </head>
 <body>
   <div class="quiz-container">
-    
-    <!-- Quiz Section -->
-    <div id="quiz-section" class="hidden">
-      <div id="question-container">
-        <h2 id="question">Question Text</h2>
-        <div id="answer-buttons" class="btn-container"></div>
-      </div>
-      <button id="next-btn" class="btn">Next</button>
-      <div id="score-container" class="hidden">
-        <h3>Your Score: <span id="score"></span></h3>
-        <button onclick="goBackToMainPage()" class="btn" id="back-to-main-page-btn">Back to Main Page</button>
-      </div>
-    </div>
-
-    <!-- Question Management Section -->
-    <div id="question-management">
-      <h3>Manage Questions</h3>
+    <!-- Main Page -->
+    <div id="main-page">
+      <h2>Manage Questions</h2>
       <form id="question-form">
         <input type="text" id="question-text" placeholder="Enter question" required>
         <input type="text" id="answer1" placeholder="Answer 1" required>
@@ -39,14 +25,24 @@
         </select>
         <button type="submit" class="btn">Add/Update Question</button>
       </form>
-      
+
       <button id="show-questions-btn" class="btn">Show All Questions</button>
-      <div id="question-list" class="hidden"></div> <!-- Hide question list initially -->
+      <div id="question-list" class="hidden"></div>
+      <button id="start-quiz-btn" class="btn">Start Quiz</button>
     </div>
 
-    <!-- Start Quiz Button -->
-    <button id="start-quiz-btn" class="btn">Start Quiz</button>
+    <!-- Quiz Section -->
+    <div id="quiz-section" class="hidden">
+      <h2 id="question">Question Text</h2>
+      <div id="answer-buttons" class="btn-container"></div>
+      <button id="next-btn" class="btn">Next</button>
+      <div id="score-container" class="hidden">
+        <h3>Your Score: <span id="score"></span></h3>
+        <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
+      </div>
+    </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
