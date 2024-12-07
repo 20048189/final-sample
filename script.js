@@ -37,17 +37,17 @@ function loadQuestions() {
     const questionItem = document.createElement('div');
     questionItem.classList.add('question-item');
     questionItem.innerText = question.question;
-    
+
     // Edit Button
     const editButton = document.createElement('button');
     editButton.innerText = 'Edit';
     editButton.onclick = () => editQuestion(index);
-    
+
     // Delete Button
     const deleteButton = document.createElement('button');
     deleteButton.innerText = 'Delete';
     deleteButton.onclick = () => deleteQuestion(index);
-    
+
     questionItem.appendChild(editButton);
     questionItem.appendChild(deleteButton);
     questionList.appendChild(questionItem);
@@ -73,6 +73,7 @@ function addOrUpdateQuestion(event) {
   }
   saveQuestions();
   questionForm.reset();
+  loadQuestions(); // Ensure updated questions are shown
 }
 
 // Edit an existing question
@@ -174,11 +175,12 @@ function goBackToMainPage() {
   quizSection.classList.add('hidden');
   questionManagementSection.classList.remove('hidden');
   resetState();
+  startQuizButton.classList.remove('hidden'); // Ensure the Start Quiz button is visible again
 }
 
 // Show all questions with editing and deleting options
 function showAllQuestions() {
-  loadQuestions();
+  loadQuestions(); // Ensure questions are loaded
   questionList.classList.remove('hidden');
   showQuestionsButton.classList.add('hidden'); // Hide Show All Questions button after clicking
 }
@@ -196,4 +198,5 @@ showQuestionsButton.addEventListener('click', showAllQuestions);
 
 // Initialize the app by loading questions and setting up the interface
 questionList.classList.add('hidden'); // Hide questions initially
-showQuestionsButton.classList.remove('hidden');
+showQuestionsButton.classList.remove('hidden'); // Show the button to trigger showing questions
+startQuizButton.classList.remove('hidden'); // Ensure the Start Quiz button is only visible on the main page
