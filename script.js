@@ -92,14 +92,18 @@ function startQuiz() {
     alert("No questions available. Please add questions first.");
     return;
   }
-  // Switch to quiz section
+
+  // Hide the question management section and show the quiz section
   questionManagementSection.classList.add('hidden');
   quizSection.classList.remove('hidden');
 
+  // Initialize quiz variables
   currentQuestionIndex = 0;
   score = 0;
   scoreContainer.classList.add('hidden');
   nextButton.classList.remove('hidden');
+
+  // Show the first question
   showQuestion();
 }
 
@@ -108,6 +112,7 @@ function showQuestion() {
   resetState();
   const currentQuestion = questions[currentQuestionIndex];
   questionElement.innerText = currentQuestion.question;
+
   currentQuestion.answers.forEach(answer => {
     const button = document.createElement('button');
     button.innerText = answer.text;
