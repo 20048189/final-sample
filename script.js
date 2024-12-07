@@ -227,11 +227,8 @@ nextButton.addEventListener('click', () => {
 questionForm.addEventListener('submit', addOrUpdateQuestion);
 startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
-showQuestionsButton.addEventListener('click', showAllQuestions);
 backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
+showQuestionsButton.addEventListener('click', showAllQuestions);
 
-// Initial Setup: Hide unnecessary sections
-quizSection.classList.add('hidden');
-questionForm.classList.add('hidden');
-backToMainPageButton.classList.add('hidden');
-backToMainPageFromShowQuestionsButton.classList.add('hidden');
+// Load questions initially
+loadQuestions();
