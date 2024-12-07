@@ -72,7 +72,6 @@ function addOrUpdateQuestion(event) {
     questions.push(newQuestion);
   }
   saveQuestions();
-  loadQuestions();
   questionForm.reset();
 }
 
@@ -180,6 +179,8 @@ function goBackToMainPage() {
 // Show all questions with editing and deleting options
 function showAllQuestions() {
   loadQuestions();
+  questionList.classList.remove('hidden');
+  showQuestionsButton.classList.add('hidden'); // Hide Show All Questions button after clicking
 }
 
 // Event Listeners
@@ -194,4 +195,5 @@ backToMainPageButton.addEventListener('click', goBackToMainPage);
 showQuestionsButton.addEventListener('click', showAllQuestions);
 
 // Initialize the app by loading questions and setting up the interface
-loadQuestions();
+questionList.classList.add('hidden'); // Hide questions initially
+showQuestionsButton.classList.remove('hidden');
