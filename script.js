@@ -188,9 +188,11 @@ function goBackToMainPage() {
 // Show all questions with editing and deleting options
 function showAllQuestions() {
   loadQuestions(); // Ensure questions are loaded
-  questionList.classList.remove('hidden');
-  showQuestionsButton.classList.add('hidden'); // Hide Show All Questions button after clicking
+  questionList.classList.remove('hidden'); // Show the questions list
+  showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
   backToMainPageButton.classList.remove('hidden'); // Show the Back to Main Page button
+  questionForm.classList.add('hidden'); // Hide the question form
+  startQuizButton.classList.add('hidden'); // Hide the Start Quiz button
 }
 
 // Event Listeners
