@@ -194,7 +194,6 @@ questionForm.addEventListener('submit', addOrUpdateQuestion);
 startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 showQuestionsButton.addEventListener('click', showAllQuestions);
-
 // Initialize the app by loading questions and setting up the interface
 questionList.classList.add('hidden'); // Hide questions initially
 showQuestionsButton.classList.remove('hidden'); // Show the button to trigger showing questions
