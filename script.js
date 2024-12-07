@@ -22,6 +22,8 @@ const questionList = document.getElementById('question-list');
 const startQuizButton = document.getElementById('start-quiz-btn');
 const quizSection = document.getElementById('quiz-section');
 const questionManagementSection = document.getElementById('question-management');
+const showQuestionsButton = document.getElementById('show-questions-btn');
+const backToMainPageButton = document.getElementById('back-to-main-page-btn');
 
 // Save questions to localStorage
 function saveQuestions() {
@@ -30,16 +32,22 @@ function saveQuestions() {
 
 // Load questions and display them
 function loadQuestions() {
-  questionList.innerHTML = '';
+  questionList.innerHTML = ''; // Clear the list before adding new ones
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
+    questionItem.classList.add('question-item');
     questionItem.innerText = question.question;
+    
+    // Edit Button
     const editButton = document.createElement('button');
     editButton.innerText = 'Edit';
     editButton.onclick = () => editQuestion(index);
+    
+    // Delete Button
     const deleteButton = document.createElement('button');
     deleteButton.innerText = 'Delete';
     deleteButton.onclick = () => deleteQuestion(index);
+    
     questionItem.appendChild(editButton);
     questionItem.appendChild(deleteButton);
     questionList.appendChild(questionItem);
@@ -162,17 +170,28 @@ function restartQuiz() {
   startQuiz();
 }
 
-// Handle next button click
+// Go back to the main page (question management section)
+function goBackToMainPage() {
+  quizSection.classList.add('hidden');
+  questionManagementSection.classList.remove('hidden');
+  resetState();
+}
+
+// Show all questions with editing and deleting options
+function showAllQuestions() {
+  loadQuestions();
+}
+
+// Event Listeners
 nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   showQuestion();
 });
 
-// Handle question form submission (add/update question)
 questionForm.addEventListener('submit', addOrUpdateQuestion);
-
-// Handle "Start Quiz" button click
 startQuizButton.addEventListener('click', startQuiz);
+backToMainPageButton.addEventListener('click', goBackToMainPage);
+showQuestionsButton.addEventListener('click', showAllQuestions);
 
 // Initialize the app by loading questions and setting up the interface
 loadQuestions();
