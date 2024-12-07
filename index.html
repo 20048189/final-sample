@@ -8,22 +8,7 @@
 </head>
 <body>
   <div class="quiz-container">
-    <!-- Question Display for Quiz -->
-    <div id="question-container">
-      <h2 id="question">Question Text</h2>
-      <div id="answer-buttons" class="btn-container"></div>
-    </div>
-
-    <!-- Next Button for Quiz Progression -->
-    <button id="next-btn" class="btn hidden">Next</button>
-
-    <!-- Score Display After Quiz -->
-    <div id="score-container" class="hidden">
-      <h3>Your Score: <span id="score"></span></h3>
-      <button onclick="restartQuiz()" class="btn">Restart Quiz</button>
-    </div>
-
-    <!-- Question Management Section -->
+    <!-- Section for managing questions -->
     <div id="question-management">
       <h3>Manage Questions</h3>
       <form id="question-form">
@@ -41,6 +26,22 @@
         <button type="submit" class="btn">Add/Update Question</button>
       </form>
       <div id="question-list"></div>
+
+      <!-- Button to start the quiz -->
+      <button id="start-quiz-btn" class="btn">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-section" class="hidden">
+      <div id="question-container">
+        <h2 id="question">Question Text</h2>
+        <div id="answer-buttons" class="btn-container"></div>
+      </div>
+      <button id="next-btn" class="btn hidden">Next</button>
+      <div id="score-container" class="hidden">
+        <h3>Your Score: <span id="score"></span></h3>
+        <button onclick="restartQuiz()" class="btn">Restart Quiz</button>
+      </div>
     </div>
   </div>
   <script src="script.js"></script>
