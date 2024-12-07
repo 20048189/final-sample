@@ -105,6 +105,9 @@ function startQuiz() {
   questionManagementSection.classList.add('hidden');
   quizSection.classList.remove('hidden');
 
+  // Hide the Start Quiz button as the quiz is starting
+  startQuizButton.classList.add('hidden');
+
   // Initialize quiz variables
   currentQuestionIndex = 0;
   score = 0;
