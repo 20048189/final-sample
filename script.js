@@ -75,16 +75,15 @@ function addOrUpdateQuestion(event) {
   };
 
   if (editingIndex !== null) {
-    questions[editingIndex] = newQuestion;
+    questions[editingIndex] = newQuestion; // Update the question
     editingIndex = null;
   } else {
-    questions.push(newQuestion);
+    questions.push(newQuestion); // Add new question
   }
   saveQuestions();
   questionForm.reset();
   loadQuestions(); // Ensure updated questions are shown
-  // Go back to main page after updating
-  showQuestionsButton.classList.remove('hidden'); 
+  showQuestionsButton.classList.remove('hidden');
   questionForm.classList.add('hidden');
   backToMainPageButton.classList.add('hidden');
   startQuizButton.classList.remove('hidden');
@@ -100,7 +99,7 @@ function editQuestion(index) {
   });
   editingIndex = index;
 
-  // Hide the main page and quiz section
+  // Hide the main page and quiz section, show the question form for editing
   mainPage.classList.add('hidden');
   quizSection.classList.add('hidden');
   questionForm.classList.remove('hidden');
@@ -233,7 +232,6 @@ backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPage
 
 // Initial Setup: Hide unnecessary sections
 quizSection.classList.add('hidden');
-questionList.classList.add('hidden');
-backToMainPageButton.classList.add('hidden'); // Hide "Back to Main Page" initially
-backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide "Back to Main Page" from show all questions view initially
-loadQuestions(); // Load existing questions on page load
+questionForm.classList.add('hidden');
+backToMainPageButton.classList.add('hidden');
+backToMainPageFromShowQuestionsButton.classList.add('hidden');
