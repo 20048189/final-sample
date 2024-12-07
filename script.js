@@ -19,6 +19,9 @@ const answerInputs = [
 ];
 const correctAnswerSelect = document.getElementById('correct-answer');
 const questionList = document.getElementById('question-list');
+const startQuizButton = document.getElementById('start-quiz-btn');
+const quizSection = document.getElementById('quiz-section');
+const questionManagementSection = document.getElementById('question-management');
 
 // Save questions to localStorage
 function saveQuestions() {
@@ -83,12 +86,16 @@ function deleteQuestion(index) {
   loadQuestions();
 }
 
-// Start the quiz
+// Show the quiz section
 function startQuiz() {
   if (questions.length === 0) {
     alert("No questions available. Please add questions first.");
     return;
   }
+  // Switch to quiz section
+  questionManagementSection.classList.add('hidden');
+  quizSection.classList.remove('hidden');
+
   currentQuestionIndex = 0;
   score = 0;
   scoreContainer.classList.add('hidden');
@@ -159,5 +166,8 @@ nextButton.addEventListener('click', () => {
 // Handle question form submission (add/update question)
 questionForm.addEventListener('submit', addOrUpdateQuestion);
 
-// Initialize the app by loading questions and starting the quiz
+// Handle "Start Quiz" button click
+startQuizButton.addEventListener('click', startQuiz);
+
+// Initialize the app by loading questions and setting up the interface
 loadQuestions();
