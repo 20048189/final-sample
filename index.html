@@ -4,52 +4,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz App with Question Management</title>
-  <link rel="stylesheet" href="style.css">
+  
 </head>
 <body>
-
-  <!-- Main Page Section -->
-  <div id="main-page" class="main-page">
-    <h1>Welcome to the Quiz App</h1>
-    <button id="start-quiz-btn" class="btn">Start Quiz</button>
-    <button id="show-questions-btn" class="btn">Show All Questions</button>
-  </div>
-
-  <!-- Quiz Section (hidden initially) -->
-  <div id="quiz-section" class="hidden">
-    <h2 id="question">Question Text</h2>
-    <div id="answer-buttons" class="btn-container"></div>
-    <button id="next-btn" class="btn">Next</button>
-    <div id="score-container" class="hidden">
-      <h3>Your Score: <span id="score"></span></h3>
-      <button onclick="goBackToMainPage()" class="btn">Back to Main Page</button>
+  <div id="main-page">
+    <h1>Quiz App</h1>
+    <button id="show-questions-btn">Show All Questions</button>
+    <button id="start-quiz-btn">Start Quiz</button>
+    <div id="question-management">
+      <h3>Manage Questions</h3>
+      <form id="question-form">
+        <input type="text" id="question-text" placeholder="Enter question" required>
+        <input type="text" id="answer1" placeholder="Answer 1" required>
+        <input type="text" id="answer2" placeholder="Answer 2" required>
+        <input type="text" id="answer3" placeholder="Answer 3" required>
+        <input type="text" id="answer4" placeholder="Answer 4" required>
+        <select id="correct-answer">
+          <option value="1">Answer 1</option>
+          <option value="2">Answer 2</option>
+          <option value="3">Answer 3</option>
+          <option value="4">Answer 4</option>
+        </select>
+        <button type="submit" class="btn">Add/Update Question</button>
+      </form>
     </div>
   </div>
 
-  <!-- Question Management Section (hidden initially) -->
-  <div id="question-management" class="hidden">
-    <h3>Manage Questions</h3>
-    <form id="question-form">
-      <input type="text" id="question-text" placeholder="Enter question" required>
-      <input type="text" id="answer1" placeholder="Answer 1" required>
-      <input type="text" id="answer2" placeholder="Answer 2" required>
-      <input type="text" id="answer3" placeholder="Answer 3" required>
-      <input type="text" id="answer4" placeholder="Answer 4" required>
-      <select id="correct-answer">
-        <option value="1">Answer 1</option>
-        <option value="2">Answer 2</option>
-        <option value="3">Answer 3</option>
-        <option value="4">Answer 4</option>
-      </select>
-      <button type="submit" class="btn">Add/Update Question</button>
-    </form>
-
-    <!-- Display Questions -->
-    <div id="question-list" class="question-list"></div>
-
-    <!-- Go Back Button -->
-    <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
+  <div id="quiz-section" class="hidden">
+    <h2 id="question">Question Text</h2>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score-container" class="hidden">
+      <h3>Your Score: <span id="score"></span></h3>
+      <button id="back-to-main-page-btn">Back to Main Page</button>
+    </div>
   </div>
+
+  <div id="question-list" class="hidden"></div>
+  <button id="back-to-main-page-from-show-questions-btn" class="hidden">Back to Main Page</button>
+
   <script src="script.js"></script>
 </body>
 </html>
