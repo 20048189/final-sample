@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quiz App with Question Management</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="quiz-container">
-    <!-- Main Page -->
-    <div id="main-page">
-      <h2>Manage Questions</h2>
+  <div id="main-page">
+    <h1>Quiz App</h1>
+    <button id="show-questions-btn">Show All Questions</button>
+    <button id="start-quiz-btn">Start Quiz</button>
+    <div id="question-management">
+      <h3>Manage Questions</h3>
       <form id="question-form">
         <input type="text" id="question-text" placeholder="Enter question" required>
         <input type="text" id="answer1" placeholder="Answer 1" required>
@@ -25,23 +26,22 @@
         </select>
         <button type="submit" class="btn">Add/Update Question</button>
       </form>
-
-      <button id="show-questions-btn" class="btn">Show All Questions</button>
-      <div id="question-list" class="hidden"></div>
-      <button id="start-quiz-btn" class="btn">Start Quiz</button>
-    </div>
-
-    <!-- Quiz Section -->
-    <div id="quiz-section" class="hidden">
-      <h2 id="question">Question Text</h2>
-      <div id="answer-buttons" class="btn-container"></div>
-      <button id="next-btn" class="btn">Next</button>
-      <div id="score-container" class="hidden">
-        <h3>Your Score: <span id="score"></span></h3>
-        <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
-      </div>
     </div>
   </div>
+
+  <div id="quiz-section" class="hidden">
+    <h2 id="question">Question Text</h2>
+    <div id="answer-buttons"></div>
+    <button id="next-btn">Next</button>
+    <div id="score-container" class="hidden">
+      <h3>Your Score: <span id="score"></span></h3>
+      <button id="back-to-main-page-btn">Back to Main Page</button>
+    </div>
+  </div>
+
+  <div id="question-list" class="hidden"></div>
+  <button id="back-to-main-page-from-show-questions-btn" class="hidden">Back to Main Page</button>
+
   <script src="script.js"></script>
 </body>
 </html>
