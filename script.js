@@ -215,6 +215,5 @@ startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
 showQuestionsButton.addEventListener('click', showAllQuestions);
-
 // Load questions initially
 loadQuestions();
