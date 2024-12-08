@@ -215,6 +215,28 @@ startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
 showQuestionsButton.addEventListener('click', showAllQuestions);
+// Show specific page function
+function showPage(pageId) {
+  // Hide all sections
+  document.querySelectorAll('section').forEach(section => section.style.display = 'none');
+  // Show the requested page
+  document.getElementById(pageId).style.display = 'block';
+}
+
+// Event listeners for showing sections
+document.getElementById('start-quiz-btn').addEventListener('click', () => {
+  showPage('quiz-section');
+  startQuiz(); // If you have any quiz-starting functionality, call it here
+});
+
+document.getElementById('show-all-questions-btn').addEventListener('click', () => {
+  showPage('manage-questions');
+  loadQuestions(); // Function to load questions if you're using localStorage
+});
+
+document.getElementById('back-to-main-page-btn').addEventListener('click', () => {
+  showPage('welcome-page');
+});
 
 // Load questions initially
 loadQuestions();
