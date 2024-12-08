@@ -3,15 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz App with Question Management</title>
+  <title>Quiz App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="main-page">
-    <h1>Quiz App</h1>
-    <button id="show-questions-btn">Show All Questions</button>
-    <button id="start-quiz-btn">Start Quiz</button>
-    <div id="question-management">
+  <section id="welcome-page" class="page">
+    <div class="welcome-container">
+      <h1>Welcome to the Quiz</h1>
+      <button id="start-quiz-btn">Start Quiz</button>
+      <button id="show-all-questions-btn">Show All Questions</button>
+    </div>
+  </section>
+
+  <section id="quiz-section" class="page">
+    <div class="quiz-container">
+      <h2 id="question">Question</h2>
+      <div id="answer-buttons" class="btn-container"></div>
+      <button id="next-btn" class="btn" disabled>Next</button>
+    </div>
+  </section>
+
+  <section id="manage-questions" class="page">
+    <div class="manage-questions-container">
       <h3>Manage Questions</h3>
       <form id="question-form">
         <input type="text" id="question-text" placeholder="Enter question" required>
@@ -27,21 +40,18 @@
         </select>
         <button type="submit" class="btn">Add/Update Question</button>
       </form>
+      <div id="question-list"></div>
+      <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
     </div>
-  </div>
+  </section>
 
-  <div id="quiz-section" class="hidden">
-    <h2 id="question">Question Text</h2>
-    <div id="answer-buttons"></div>
-    <button id="next-btn">Next</button>
-    <div id="score-container" class="hidden">
+  <section id="score-section" class="page">
+    <div class="score-container">
       <h3>Your Score: <span id="score"></span></h3>
-      <button id="back-to-main-page-btn">Back to Main Page</button>
+      <button id="restart-quiz-btn" class="btn">Restart Quiz</button>
+      <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
     </div>
-  </div>
-
-  <div id="question-list" class="hidden"></div>
-  <button id="back-to-main-page-from-show-questions-btn" class="hidden">Back to Main Page</button>
+  </section>
 
   <script src="script.js"></script>
 </body>
