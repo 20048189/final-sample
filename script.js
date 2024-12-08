@@ -36,29 +36,15 @@ function loadQuestions() {
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
     questionItem.classList.add('question-item'); // Add a class for styling
-    questionItem.innerHTML = `<strong>${question.question}</strong><br>`;
     
-    // Create Answer Buttons
-    question.answers.forEach(answer => {
-      const answerItem = document.createElement('p');
-      answerItem.innerText = answer.text;
-      questionItem.appendChild(answerItem);
-    });
+    // Create a structured question display
+    questionItem.innerHTML = `
+      <strong>${question.question}</strong><br>
+      ${question.answers.map(answer => `<p>${answer.text}</p>`).join('')}
+      <button class="edit-btn" onclick="editQuestion(${index})">Edit</button>
+      <button class="delete-btn" onclick="deleteQuestion(${index})">Delete</button>
+    `;
     
-    // Edit Button
-    const editButton = document.createElement('button');
-    editButton.classList.add('edit-btn');
-    editButton.innerText = 'Edit';
-    editButton.onclick = () => editQuestion(index);
-    
-    // Delete Button
-    const deleteButton = document.createElement('button');
-    deleteButton.classList.add('delete-btn');
-    deleteButton.innerText = 'Delete';
-    deleteButton.onclick = () => deleteQuestion(index);
-    
-    questionItem.appendChild(editButton);
-    questionItem.appendChild(deleteButton);
     questionList.appendChild(questionItem);
   });
 }
@@ -201,12 +187,11 @@ function goBackToMainPage() {
 
 // Show all questions with editing and deleting options
 function showAllQuestions() {
+  questionForm.classList.add('hidden'); // Hide the form
   loadQuestions(); // Ensure questions are loaded
   questionList.classList.remove('hidden'); // Show the questions list
   showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
   backToMainPageFromShowQuestionsButton.classList.remove('hidden'); // Show the Back to Main Page button after questions list
-  questionForm.classList.add('hidden'); // Hide the question form
-  startQuizButton.classList.add('hidden'); // Hide the Start Quiz button
 }
 
 // Go back to the main page from show all questions view
