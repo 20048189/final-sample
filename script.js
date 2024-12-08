@@ -36,17 +36,36 @@ function loadQuestions() {
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
     questionItem.classList.add('question-item'); // Add a class for styling
-    
-    // Create a structured question display
     questionItem.innerHTML = `
       <strong>${question.question}</strong><br>
-      ${question.answers.map(answer => `<p>${answer.text}</p>`).join('')}
+      <div>Answer 1: ${question.answers[0].text}</div>
+      <div>Answer 2: ${question.answers[1].text}</div>
+      <div>Answer 3: ${question.answers[2].text}</div>
+      <div>Answer 4: ${question.answers[3].text}</div>
       <button class="edit-btn" onclick="editQuestion(${index})">Edit</button>
       <button class="delete-btn" onclick="deleteQuestion(${index})">Delete</button>
     `;
-    
     questionList.appendChild(questionItem);
   });
+}
+
+// Show all questions (show the list of questions with editing and deleting)
+function showAllQuestions() {
+  loadQuestions(); // Ensure questions are loaded
+  questionList.classList.remove('hidden'); // Show the questions list
+  showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
+  backToMainPageFromShowQuestionsButton.classList.remove('hidden'); // Show the Back to Main Page button after questions list
+  questionForm.classList.add('hidden'); // Hide the question form
+  startQuizButton.classList.add('hidden'); // Hide the Start Quiz button
+}
+
+// Go back to the main page from show all questions view
+function goBackToMainPageFromShowQuestions() {
+  questionList.classList.add('hidden');
+  showQuestionsButton.classList.remove('hidden'); // Show the Show All Questions button again
+  backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide the "Back to Main Page" button
+  questionForm.classList.remove('hidden'); // Show the question form again
+  startQuizButton.classList.remove('hidden'); // Show the Start Quiz button
 }
 
 // Add or update a question
@@ -100,7 +119,7 @@ function deleteQuestion(index) {
   loadQuestions();
 }
 
-// Show the quiz section
+// Start the quiz
 function startQuiz() {
   if (questions.length === 0) {
     alert("No questions available. Please add questions first.");
@@ -183,24 +202,6 @@ function goBackToMainPage() {
   // Ensure the Start Quiz button is visible again when going back to the main page
   startQuizButton.classList.remove('hidden');
   backToMainPageButton.classList.add('hidden'); // Hide the "Back to Main Page" button
-}
-
-// Show all questions with editing and deleting options
-function showAllQuestions() {
-  questionForm.classList.add('hidden'); // Hide the form
-  loadQuestions(); // Ensure questions are loaded
-  questionList.classList.remove('hidden'); // Show the questions list
-  showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
-  backToMainPageFromShowQuestionsButton.classList.remove('hidden'); // Show the Back to Main Page button after questions list
-}
-
-// Go back to the main page from show all questions view
-function goBackToMainPageFromShowQuestions() {
-  questionList.classList.add('hidden');
-  showQuestionsButton.classList.remove('hidden'); // Show the Show All Questions button again
-  backToMainPageFromShowQuestionsButton.classList.add('hidden'); // Hide the "Back to Main Page" button
-  questionForm.classList.remove('hidden'); // Show the question form again
-  startQuizButton.classList.remove('hidden'); // Show the Start Quiz button
 }
 
 // Event Listeners
