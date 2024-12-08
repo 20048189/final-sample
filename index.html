@@ -7,52 +7,44 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <section id="welcome-page" class="page">
-    <div class="welcome-container">
-      <h1>Welcome to the Quiz</h1>
-      <button id="start-quiz-btn">Start Quiz</button>
-      <button id="show-all-questions-btn">Show All Questions</button>
-    </div>
-  </section>
+  <div id="welcome-page" class="page">
+    <h1>Welcome to the Quiz App</h1>
+    <button id="start-quiz-btn">Start Quiz</button>
+    <button id="show-all-questions-btn">Show All Questions</button>
+  </div>
 
-  <section id="quiz-section" class="page">
-    <div class="quiz-container">
-      <h2 id="question">Question</h2>
-      <div id="answer-buttons" class="btn-container"></div>
-      <button id="next-btn" class="btn" disabled>Next</button>
-    </div>
-  </section>
+  <div id="quiz-page" class="page">
+    <h2 id="quiz-question"></h2>
+    <div id="answer-buttons"></div>
+    <button id="next-btn" disabled>Next Question</button>
+  </div>
 
-  <section id="manage-questions" class="page">
-    <div class="manage-questions-container">
-      <h3>Manage Questions</h3>
-      <form id="question-form">
-        <input type="text" id="question-text" placeholder="Enter question" required>
-        <input type="text" id="answer1" placeholder="Answer 1" required>
-        <input type="text" id="answer2" placeholder="Answer 2" required>
-        <input type="text" id="answer3" placeholder="Answer 3" required>
-        <input type="text" id="answer4" placeholder="Answer 4" required>
-        <select id="correct-answer">
-          <option value="1">Answer 1</option>
-          <option value="2">Answer 2</option>
-          <option value="3">Answer 3</option>
-          <option value="4">Answer 4</option>
-        </select>
-        <button type="submit" class="btn">Add/Update Question</button>
-      </form>
-      <div id="question-list"></div>
-      <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
-    </div>
-  </section>
+  <div id="manage-questions-page" class="page">
+    <h3>Manage Questions</h3>
+    <form id="question-form">
+      <input type="text" id="question-text" placeholder="Enter question" required>
+      <input type="text" id="answer1" placeholder="Answer 1" required>
+      <input type="text" id="answer2" placeholder="Answer 2" required>
+      <input type="text" id="answer3" placeholder="Answer 3" required>
+      <input type="text" id="answer4" placeholder="Answer 4" required>
+      <select id="correct-answer">
+        <option value="1">Answer 1</option>
+        <option value="2">Answer 2</option>
+        <option value="3">Answer 3</option>
+        <option value="4">Answer 4</option>
+      </select>
+      <button type="submit">Add Question</button>
+    </form>
 
-  <section id="score-section" class="page">
-    <div class="score-container">
-      <h3>Your Score: <span id="score"></span></h3>
-      <button id="restart-quiz-btn" class="btn">Restart Quiz</button>
-      <button id="back-to-main-page-btn" class="btn">Back to Main Page</button>
-    </div>
-  </section>
+    <div id="questions-list"></div>
+    <button id="back-to-main-page-btn">Back to Main Page</button>
+  </div>
 
+  <div id="score-page" class="page">
+    <h3>Your Score: <span id="score"></span></h3>
+    <button id="restart-quiz-btn">Restart Quiz</button>
+    <button id="go-back-main-page-btn">Back to Main Page</button>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
