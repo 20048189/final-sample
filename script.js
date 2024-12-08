@@ -136,8 +136,9 @@ function endQuiz() {
   answerButtonsElement.classList.add('hidden');
   nextButton.classList.add('hidden');
   scoreContainer.classList.remove('hidden');
-  scoreElement.innerText = score;
+  scoreElement.innerText = `${score} / ${questions.length}`;  // Display obtained score out of total questions
 }
+
 
 function goBackToMainPage() {
   quizSection.classList.add('hidden');
