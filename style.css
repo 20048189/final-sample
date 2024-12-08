@@ -8,9 +8,9 @@
 /* Body Styling */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f7f9fc;
+  background-color: #f4f7fc;
   color: #333;
-  padding: 20px;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,111 +18,112 @@ body {
   flex-direction: column;
 }
 
-/* Header Styling */
-h1, h2, h3 {
-  color: #2e3d49;
-  margin-bottom: 20px;
-}
-
-/* Main Page Styling */
-.main-page {
+/* Welcome Page */
+.welcome-page {
   text-align: center;
   background-color: #ffffff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 40px;
-  width: 350px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.main-page h1 {
-  font-size: 2rem;
-  color: #4A90E2;
+.welcome-page h1 {
+  font-size: 2.2rem;
+  color: #2a9df4;
+  margin-bottom: 30px;
 }
 
 button {
   width: 100%;
   padding: 12px;
   margin: 15px 0;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0077cc;
 }
 
 button:active {
-  background-color: #003d7d;
+  background-color: #005f99;
 }
 
-/* Styling for Quiz Section */
+/* Quiz Section */
 #quiz-section {
   text-align: center;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 30px;
-  width: 350px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
 
 #question {
-  font-size: 1.5rem;
-  color: #4A90E2;
+  font-size: 1.8rem;
+  color: #2a9df4;
   margin-bottom: 20px;
 }
 
 .btn-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .btn-container button {
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
   font-size: 16px;
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: none;
   transition: background-color 0.3s ease;
 }
 
 .btn-container button:hover {
-  background-color: #45a049;
+  background-color: #218838;
 }
 
 #next-btn {
-  background-color: #28a745;
+  background-color: #0069d9;
   color: white;
 }
 
 #next-btn:hover {
-  background-color: #218838;
+  background-color: #0056b3;
 }
 
-/* Styling for Score Container */
+#next-btn:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Score Container */
 #score-container {
   margin-top: 20px;
+  text-align: center;
 }
 
 #score {
-  font-size: 24px;
+  font-size: 2rem;
   font-weight: bold;
   color: #28a745;
 }
 
-/* Question Management Section Styling */
+/* Question Management Section */
 #question-management {
   background-color: #fff;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 30px;
-  width: 350px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
 
@@ -131,7 +132,7 @@ button:active {
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #ddd;
   font-size: 16px;
 }
@@ -141,7 +142,7 @@ button:active {
   color: white;
   font-size: 16px;
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 100%;
   border: none;
   transition: background-color 0.3s ease;
@@ -156,22 +157,22 @@ button:active {
 }
 
 .question-item {
-  background-color: #f4f7f6;
+  background-color: #f7f9fc;
   padding: 15px;
   border-radius: 8px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .question-item p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: #333;
   margin-bottom: 10px;
 }
 
 .question-item button {
-  padding: 8px 15px;
-  border-radius: 5px;
+  padding: 8px 18px;
+  border-radius: 8px;
   font-size: 14px;
   margin: 5px;
   cursor: pointer;
@@ -195,12 +196,12 @@ button:active {
   background-color: #d32f2f;
 }
 
-/* Styling for Back Buttons */
+/* Back Button Styling */
 #back-to-main-page-btn {
   background-color: #007bff;
   color: white;
   padding: 12px;
-  border-radius: 5px;
+  border-radius: 8px;
   width: 100%;
   border: none;
   margin-top: 20px;
@@ -213,15 +214,23 @@ button:active {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .main-page,
+  .welcome-page,
   #quiz-section,
   #question-management {
-    width: 100%;
+    width: 90%;
     padding: 20px;
   }
 
   button {
     font-size: 14px;
     padding: 10px;
+  }
+
+  #question {
+    font-size: 1.5rem;
+  }
+
+  #score {
+    font-size: 1.5rem;
   }
 }
