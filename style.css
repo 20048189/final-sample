@@ -34,3 +34,15 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+#question-list {
+  margin-bottom: 20px;
+}
+
+#back-to-main-page-btn {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
