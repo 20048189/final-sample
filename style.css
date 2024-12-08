@@ -27,7 +27,7 @@ h2 {
 }
 
 /* Main Page Styling */
-#main-page {
+.main-page {
   text-align: center;
   background-color: #fff;
   border-radius: 10px;
@@ -36,28 +36,35 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#question-management {
-  margin-top: 20px;
-}
-
-input, select, button {
+button {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 14px;
-}
-
-button {
   background-color: #007BFF;
   color: white;
-  border: none;
   cursor: pointer;
 }
 
 button:hover {
   background-color: #0056b3;
+}
+
+/* Hide and Show Elements */
+.hidden {
+  display: none;
+}
+
+/* Quiz Section Styling */
+#quiz-section {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Question List Styling */
@@ -88,38 +95,6 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Hide and Show Elements */
-.hidden {
-  display: none;
-}
-
-#back-to-main-page-btn, #back-to-main-page-from-show-questions-btn {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-}
-
-#quiz-section {
-  text-align: center;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#quiz-section button {
-  background-color: #28a745;
-  margin-top: 20px;
-  width: 100%;
-}
-
-#quiz-section button:hover {
-  background-color: #218838;
-}
-
 /* Score Styling */
 #score-container {
   margin-top: 20px;
@@ -131,19 +106,11 @@ button:hover {
   color: #333;
 }
 
-#answer-buttons button {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 16px;
+/* Back Buttons */
+#back-to-main-page-btn {
   background-color: #007BFF;
   color: white;
-  border: none;
-  cursor: pointer;
+  padding: 10px;
   border-radius: 5px;
-}
-
-#answer-buttons button:hover {
-  background-color: #0056b3;
+  margin-top: 20px;
 }
