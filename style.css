@@ -33,7 +33,6 @@ h2, h3 {
   margin: 5px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 16px;
 }
 
 .btn:hover {
@@ -44,10 +43,10 @@ h2, h3 {
   display: none;
 }
 
-#question-management {
-  margin-top: 20px;
-}
-
-#question-list {
-  margin-top: 20px;
+#question-form input, #question-form select {
+  margin: 5px;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
