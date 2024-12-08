@@ -10,7 +10,6 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f7fc;
   color: #333;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,15 +19,14 @@ body {
 }
 
 /* Hide all sections by default */
-section {
+.page {
   display: none;
   width: 100%;
   text-align: center;
 }
 
 /* Welcome Page */
-.welcome-page {
-  display: block;
+.welcome-container {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 40px;
@@ -36,7 +34,7 @@ section {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.welcome-page h1 {
+.welcome-container h1 {
   font-size: 2.2rem;
   color: #2a9df4;
   margin-bottom: 30px;
@@ -63,8 +61,8 @@ button:active {
 }
 
 /* Quiz Section */
-.quiz-section {
-  display: none;
+.quiz-container {
+  display: block;
   text-align: center;
   background-color: #fff;
   border-radius: 12px;
@@ -73,7 +71,7 @@ button:active {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.quiz-section h2 {
+.quiz-container h2 {
   font-size: 1.8rem;
   color: #2a9df4;
   margin-bottom: 20px;
@@ -114,8 +112,7 @@ button:active {
 }
 
 /* Score Container */
-#score-container {
-  margin-top: 20px;
+.score-container {
   text-align: center;
 }
 
@@ -126,14 +123,13 @@ button:active {
 }
 
 /* Question Management Section */
-.manage-questions {
-  display: none;
+.manage-questions-container {
+  display: block;
   background-color: #fff;
   border-radius: 12px;
   padding: 30px;
   width: 400px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
 }
 
 #question-form input,
@@ -223,9 +219,10 @@ button:active {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .welcome-page,
-  .quiz-section,
-  .manage-questions {
+  .welcome-container,
+  .quiz-container,
+  .manage-questions-container,
+  .score-container {
     width: 90%;
     padding: 20px;
   }
