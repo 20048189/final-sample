@@ -5,10 +5,10 @@
   box-sizing: border-box;
 }
 
-/* Body and Global Styles */
+/* Body Styling */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #f4f7f6;
+  background-color: #f7f9fc;
   color: #333;
   padding: 20px;
   display: flex;
@@ -18,84 +18,94 @@ body {
   flex-direction: column;
 }
 
-h1, h3 {
-  color: #5d5d5d;
-}
-
-h2 {
-  color: #1e1e1e;
+/* Header Styling */
+h1, h2, h3 {
+  color: #2e3d49;
+  margin-bottom: 20px;
 }
 
 /* Main Page Styling */
 .main-page {
   text-align: center;
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 30px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main-page h1 {
+  font-size: 2rem;
+  color: #4A90E2;
 }
 
 button {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
+  padding: 12px;
+  margin: 15px 0;
   border-radius: 5px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  background-color: #007BFF;
-  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-/* Hide and Show Elements */
-.hidden {
-  display: none;
+button:active {
+  background-color: #003d7d;
 }
 
-/* Quiz Section Styling */
+/* Styling for Quiz Section */
 #quiz-section {
   text-align: center;
   background-color: #fff;
   border-radius: 10px;
   padding: 30px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Question List Styling */
-#question-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
 
-.question-item {
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+#question {
+  font-size: 1.5rem;
+  color: #4A90E2;
+  margin-bottom: 20px;
 }
 
-.question-item button {
-  background-color: #f44336;
-  margin: 5px;
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.question-item button.edit-btn {
+.btn-container button {
   background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease;
 }
 
-.question-item button:hover {
-  opacity: 0.8;
+.btn-container button:hover {
+  background-color: #45a049;
 }
 
-/* Score Styling */
+#next-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+#next-btn:hover {
+  background-color: #218838;
+}
+
+/* Styling for Score Container */
 #score-container {
   margin-top: 20px;
 }
@@ -103,14 +113,115 @@ button:hover {
 #score {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #28a745;
 }
 
-/* Back Buttons */
-#back-to-main-page-btn {
-  background-color: #007BFF;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
+/* Question Management Section Styling */
+#question-management {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  width: 350px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
+}
+
+#question-form input,
+#question-form select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+#question-form button {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+#question-form button:hover {
+  background-color: #0056b3;
+}
+
+.question-list {
+  margin-top: 20px;
+}
+
+.question-item {
+  background-color: #f4f7f6;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-item p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.question-item button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.question-item button.edit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.question-item button.edit-btn:hover {
+  background-color: #45a049;
+}
+
+.question-item button.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.question-item button.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Styling for Back Buttons */
+#back-to-main-page-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+#back-to-main-page-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-page,
+  #quiz-section,
+  #question-management {
+    width: 100%;
+    padding: 20px;
+  }
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
 }
