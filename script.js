@@ -144,7 +144,6 @@ function goBackToMainPage() {
   mainPage.classList.remove('hidden');
   questionManagement.classList.add('hidden');
 }
-
 startQuizBtn.addEventListener('click', startQuiz);
 showQuestionsBtn.addEventListener('click', () => {
   loadQuestions();
