@@ -162,3 +162,7 @@ button:hover {
     font-size: 18px;
   }
 }
+/* Ensure the question list is hidden by default */
+#question-list {
+  display: none;
+}
