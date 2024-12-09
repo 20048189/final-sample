@@ -137,6 +137,11 @@ button:hover {
   background-color: #c82333;
 }
 
+/* Ensure the question list is hidden by default */
+#question-list {
+  display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   body {
