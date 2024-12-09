@@ -58,6 +58,16 @@ function showAllQuestions() {
   questionForm.classList.add('hidden'); // Hide the question form
   startQuizButton.classList.add('hidden'); // Hide the Start Quiz button
 }
+function showAllQuestions() {
+  loadQuestions();
+  questionList.classList.remove('hidden'); // Show the question list
+  showQuestionsButton.classList.add('hidden'); // Hide the Show All Questions button
+}
+
+function goBackToMainPageFromShowQuestions() {
+  questionList.classList.add('hidden'); // Hide the question list
+  showQuestionsButton.classList.remove('hidden'); // Show the Show All Questions button
+}
 
 // Go back to the main page from show all questions view
 function goBackToMainPageFromShowQuestions() {
