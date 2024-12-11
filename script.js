@@ -1,4 +1,4 @@
-let questions = JSON.parse(localStorage.getItem("questions")) || [];
+
 const API_URL = 'http://localhost:3000/api/questions'; // Base API URL
 
 async function loadQuestions() {
