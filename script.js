@@ -153,6 +153,7 @@ function resetState() {
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
+  answerButtonsElement.style.display = "flex"; // Reset visibility for the next question
 }
 
 // Handle answer selection
@@ -177,6 +178,19 @@ function endQuiz() {
   nextButton.style.display = "none";
   scoreContainer.style.display = "block";
   scoreElement.innerText = `${score} / ${questions.length}`;
+  backToMainPageButton.style.display = "inline-block"; // Show the Back to Main Page button
+}
+
+// Go back to the main page after the quiz
+function goBackToMainPage() {
+  quizSection.style.display = "none";
+  mainPage.style.display = "block";
+
+  // Reset the quiz section for the next round
+  resetState();
+  questionElement.innerText = "";
+  scoreContainer.style.display = "none";
+  backToMainPageButton.style.display = "none";
 }
 
 // Event Listeners
@@ -192,6 +206,7 @@ backToMainPageFromShowQuestionsButton.addEventListener(
   "click",
   goBackToMainPageFromShowQuestions
 );
+backToMainPageButton.addEventListener("click", goBackToMainPage);
 
 // Initial Setup
 loadQuestions();
