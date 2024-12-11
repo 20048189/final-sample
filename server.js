@@ -23,10 +23,12 @@ app.get('/api/questions', (req, res) => {
 
 // Add a new question
 app.post('/api/questions', (req, res) => {
-  const questions = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8') || '[]');
-  questions.push(req.body);
-  fs.writeFileSync(DATA_FILE, JSON.stringify(questions, null, 2));
-  res.status(201).json(req.body);
+  const question = req.body;
+  if (!question) {
+    return res.status(400).json({ error: 'Invalid question data' });
+  }
+  questions.push(question);
+  res.status(201).json({ message: 'Question added successfully', question });
 });
 
 // Update a question
