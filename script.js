@@ -1,4 +1,18 @@
 let questions = JSON.parse(localStorage.getItem("questions")) || [];
+async function loadQuestions() {
+  const response = await fetch('http://localhost:3000/api/questions');
+  questions = await response.json();
+  displayQuestions();
+}
+async function addQuestion(newQuestion) {
+  await fetch('http://localhost:3000/api/questions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newQuestion),
+  });
+  loadQuestions(); // Reload updated questions
+}
+
 let currentQuestionIndex = 0;
 let score = 0;
 let editingIndex = null;
