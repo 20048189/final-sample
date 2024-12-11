@@ -1,11 +1,11 @@
 let questions = JSON.parse(localStorage.getItem("questions")) || [];
 async function loadQuestions() {
-  const response = await fetch('http://localhost:3000/api/questions');
+  const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/');
   questions = await response.json();
   displayQuestions();
 }
 async function addQuestion(newQuestion) {
-  await fetch('http://localhost:3000/api/questions', {
+  await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(newQuestion),
