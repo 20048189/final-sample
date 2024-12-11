@@ -40,7 +40,7 @@ async function fetchQuestions() {
 // Save question to server
 async function saveQuestion(question) {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(question),
@@ -61,7 +61,7 @@ async function saveQuestion(question) {
 // Fetch and display questions
 async function fetchQuestions() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/');
     if (!response.ok) {
       throw new Error(`Failed to fetch questions: ${response.statusText}`);
     }
