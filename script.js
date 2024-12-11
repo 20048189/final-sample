@@ -42,7 +42,7 @@ async function saveQuestion(question, index = null) {
   try {
     if (index !== null) {
       // Update an existing question
-      await fetch(`${'http://localhost:3000/api/questions'}/${index}`, {
+      await fetch('http://localhost:3000/api/questions', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
@@ -64,7 +64,7 @@ async function saveQuestion(question, index = null) {
 // Delete a question
 async function deleteQuestion(index) {
   try {
-    await fetch(`${'http://localhost:3000/api/questions'}/${index}`, { method: 'DELETE' });
+    await fetch('http://localhost:3000/api/questions', { method: 'DELETE' });
     fetchQuestions();
   } catch (error) {
     console.error('Error deleting question:', error);
