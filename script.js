@@ -1,54 +1,85 @@
-let questions = JSON.parse(localStorage.getItem("questions")) || [];
+const API_URL = 'http://localhost:3000/api/questions'; // Change this URL if your server runs on a different address
+let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let editingIndex = null;
 
-const questionElement = document.getElementById("question");
-const answerButtonsElement = document.getElementById("answer-buttons");
-const nextButton = document.getElementById("next-btn");
-const scoreContainer = document.getElementById("score-container");
-const scoreElement = document.getElementById("score");
-const questionForm = document.getElementById("question-form");
-const questionText = document.getElementById("question-text");
+const questionElement = document.getElementById('question');
+const answerButtonsElement = document.getElementById('answer-buttons');
+const nextButton = document.getElementById('next-btn');
+const scoreContainer = document.getElementById('score-container');
+const scoreElement = document.getElementById('score');
+const questionForm = document.getElementById('question-form');
+const questionText = document.getElementById('question-text');
 const answerInputs = [
-  document.getElementById("answer1"),
-  document.getElementById("answer2"),
-  document.getElementById("answer3"),
-  document.getElementById("answer4"),
+  document.getElementById('answer1'),
+  document.getElementById('answer2'),
+  document.getElementById('answer3'),
+  document.getElementById('answer4')
 ];
-const correctAnswerSelect = document.getElementById("correct-answer");
-const questionList = document.getElementById("question-list");
-const showQuestionsButton = document.getElementById("show-questions-btn");
-const startQuizButton = document.getElementById("start-quiz-btn");
-const quizSection = document.getElementById("quiz-section");
-const mainPage = document.getElementById("main-page");
-const backToMainPageButton = document.getElementById("back-to-main-page-btn");
-const backToMainPageFromShowQuestionsButton = document.getElementById(
-  "back-to-main-page-from-show-questions-btn"
-);
+const correctAnswerSelect = document.getElementById('correct-answer');
+const questionList = document.getElementById('question-list');
+const showQuestionsButton = document.getElementById('show-questions-btn');
+const startQuizButton = document.getElementById('start-quiz-btn');
+const quizSection = document.getElementById('quiz-section');
+const mainPage = document.getElementById('main-page');
+const backToMainPageButton = document.getElementById('back-to-main-page-btn');
+const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-main-page-from-show-questions-btn');
 
-// Save questions to localStorage
-function saveQuestions() {
-  localStorage.setItem("questions", JSON.stringify(questions));
+// Fetch all questions from the server
+async function fetchQuestions() {
+  try {
+    const response = await fetch(API_URL);
+    questions = await response.json();
+    loadQuestions();
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+  }
 }
 
-// Load questions and display them in a structured format
-function loadQuestions() {
-  questionList.innerHTML = ""; // Clear the list before adding new ones
-  if (questions.length === 0) {
-    questionList.innerHTML = "<p>No questions available. Add some first!</p>";
-    return;
+// Save a question (add or update)
+async function saveQuestion(question, index = null) {
+  try {
+    if (index !== null) {
+      // Update an existing question
+      await fetch(`${API_URL}/${index}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(question)
+      });
+    } else {
+      // Add a new question
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(question)
+      });
+    }
+    fetchQuestions();
+  } catch (error) {
+    console.error('Error saving question:', error);
   }
+}
 
+// Delete a question
+async function deleteQuestion(index) {
+  try {
+    await fetch(`${API_URL}/${index}`, { method: 'DELETE' });
+    fetchQuestions();
+  } catch (error) {
+    console.error('Error deleting question:', error);
+  }
+}
+
+// Load questions into the UI
+function loadQuestions() {
+  questionList.innerHTML = '';
   questions.forEach((question, index) => {
-    const questionItem = document.createElement("div");
-    questionItem.classList.add("question-item");
+    const questionItem = document.createElement('div');
+    questionItem.classList.add('question-item');
     questionItem.innerHTML = `
       <strong>${question.question}</strong><br>
-      <div>Answer 1: ${question.answers[0].text}</div>
-      <div>Answer 2: ${question.answers[1].text}</div>
-      <div>Answer 3: ${question.answers[2].text}</div>
-      <div>Answer 4: ${question.answers[3].text}</div>
+      ${question.answers.map((a, i) => `<div>Answer ${i + 1}: ${a.text}</div>`).join('')}
       <button class="edit-btn" onclick="editQuestion(${index})">Edit</button>
       <button class="delete-btn" onclick="deleteQuestion(${index})">Delete</button>
     `;
@@ -58,42 +89,38 @@ function loadQuestions() {
 
 // Show all questions
 function showAllQuestions() {
-  loadQuestions();
-  questionList.style.display = "block"; // Show the question list
-  showQuestionsButton.style.display = "none"; // Hide the Show All Questions button
-  backToMainPageFromShowQuestionsButton.style.display = "inline-block"; // Show the Back button
+  questionList.classList.remove('hidden');
+  showQuestionsButton.classList.add('hidden');
+  backToMainPageFromShowQuestionsButton.classList.remove('hidden');
+  questionForm.classList.add('hidden');
+  startQuizButton.classList.add('hidden');
 }
 
-// Go back to the main page from show all questions view
+// Go back to the main page from Show Questions
 function goBackToMainPageFromShowQuestions() {
-  questionList.style.display = "none"; // Hide the question list
-  showQuestionsButton.style.display = "inline-block"; // Show the Show All Questions button
-  backToMainPageFromShowQuestionsButton.style.display = "none"; // Hide the Back button
+  questionList.classList.add('hidden');
+  showQuestionsButton.classList.remove('hidden');
+  backToMainPageFromShowQuestionsButton.classList.add('hidden');
+  questionForm.classList.remove('hidden');
+  startQuizButton.classList.remove('hidden');
 }
 
 // Add or update a question
-function addOrUpdateQuestion(event) {
+questionForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const newQuestion = {
     question: questionText.value,
     answers: answerInputs.map((input, i) => ({
       text: input.value,
-      correct: i + 1 == correctAnswerSelect.value,
-    })),
+      correct: i + 1 == correctAnswerSelect.value
+    }))
   };
-
-  if (editingIndex !== null) {
-    questions[editingIndex] = newQuestion; // Update the question
-    editingIndex = null;
-  } else {
-    questions.push(newQuestion); // Add new question
-  }
-  saveQuestions();
+  saveQuestion(newQuestion, editingIndex);
+  editingIndex = null;
   questionForm.reset();
-  goBackToMainPageFromShowQuestions();
-}
+});
 
-// Edit an existing question
+// Edit a question
 function editQuestion(index) {
   const question = questions[index];
   questionText.value = question.question;
@@ -102,31 +129,20 @@ function editQuestion(index) {
     if (answer.correct) correctAnswerSelect.value = i + 1;
   });
   editingIndex = index;
-  questionForm.scrollIntoView({ behavior: "smooth" });
-}
-
-// Delete a question
-function deleteQuestion(index) {
-  questions.splice(index, 1);
-  saveQuestions();
-  loadQuestions();
 }
 
 // Start the quiz
 function startQuiz() {
   if (questions.length === 0) {
-    alert("No questions available. Please add questions first.");
+    alert('No questions available. Please add questions first.');
     return;
   }
-
-  mainPage.style.display = "none";
-  quizSection.style.display = "block";
-
+  mainPage.classList.add('hidden');
+  quizSection.classList.remove('hidden');
   currentQuestionIndex = 0;
   score = 0;
-  scoreContainer.style.display = "none";
-  nextButton.style.display = "inline-block";
-
+  scoreContainer.classList.add('hidden');
+  nextButton.classList.remove('hidden');
   showQuestion();
 }
 
@@ -136,30 +152,29 @@ function showQuestion() {
   const currentQuestion = questions[currentQuestionIndex];
   questionElement.innerText = currentQuestion.question;
 
-  currentQuestion.answers.forEach((answer) => {
-    const button = document.createElement("button");
+  currentQuestion.answers.forEach(answer => {
+    const button = document.createElement('button');
     button.innerText = answer.text;
-    button.classList.add("btn");
+    button.classList.add('btn');
     if (answer.correct) {
       button.dataset.correct = answer.correct;
     }
-    button.addEventListener("click", selectAnswer);
+    button.addEventListener('click', selectAnswer);
     answerButtonsElement.appendChild(button);
   });
 }
 
-// Reset the state (clear previous answers)
+// Reset the state
 function resetState() {
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
-  answerButtonsElement.style.display = "flex"; // Reset visibility for the next question
 }
 
-// Handle answer selection
+// Select an answer
 function selectAnswer(e) {
   const selectedButton = e.target;
-  const isCorrect = selectedButton.dataset.correct;
+  const isCorrect = selectedButton.dataset.correct === 'true';
   if (isCorrect) {
     score++;
   }
@@ -171,42 +186,35 @@ function selectAnswer(e) {
   }
 }
 
-// End the quiz and display the score
+// End the quiz
 function endQuiz() {
-  questionElement.innerText = "Quiz Complete!";
-  answerButtonsElement.style.display = "none";
-  nextButton.style.display = "none";
-  scoreContainer.style.display = "block";
+  questionElement.innerText = 'Quiz Complete!';
+  answerButtonsElement.classList.add('hidden');
+  nextButton.classList.add('hidden');
+  scoreContainer.classList.remove('hidden');
   scoreElement.innerText = `${score} / ${questions.length}`;
-  backToMainPageButton.style.display = "inline-block"; // Show the Back to Main Page button
+  backToMainPageButton.classList.remove('hidden');
 }
 
-// Go back to the main page after the quiz
+// Go back to the main page
 function goBackToMainPage() {
-  quizSection.style.display = "none";
-  mainPage.style.display = "block";
-
-  // Reset the quiz section for the next round
+  quizSection.classList.add('hidden');
+  mainPage.classList.remove('hidden');
   resetState();
-  questionElement.innerText = "";
-  scoreContainer.style.display = "none";
-  backToMainPageButton.style.display = "none";
+  startQuizButton.classList.remove('hidden');
+  backToMainPageButton.classList.add('hidden');
 }
 
-// Event Listeners
-nextButton.addEventListener("click", () => {
+// Event listeners
+nextButton.addEventListener('click', () => {
   currentQuestionIndex++;
   showQuestion();
 });
 
-questionForm.addEventListener("submit", addOrUpdateQuestion);
-startQuizButton.addEventListener("click", startQuiz);
-showQuestionsButton.addEventListener("click", showAllQuestions);
-backToMainPageFromShowQuestionsButton.addEventListener(
-  "click",
-  goBackToMainPageFromShowQuestions
-);
-backToMainPageButton.addEventListener("click", goBackToMainPage);
+startQuizButton.addEventListener('click', startQuiz);
+backToMainPageButton.addEventListener('click', goBackToMainPage);
+backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
+showQuestionsButton.addEventListener('click', showAllQuestions);
 
-// Initial Setup
-loadQuestions();
+// Fetch questions initially
+fetchQuestions();
