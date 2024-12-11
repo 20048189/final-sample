@@ -1,5 +1,5 @@
 
-const API_URL = 'http://localhost:3000/api/questions'; // Base API URL
+const API_URL = 'https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/'; // Base API URL
 
 async function loadQuestions() {
   try {
