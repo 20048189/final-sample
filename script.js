@@ -40,21 +40,28 @@ async function fetchQuestions() {
 // Save a question (add or update)
 async function saveQuestion(question, index = null) {
   try {
+    let response;
     if (index !== null) {
       // Update an existing question
-      await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
+      response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
       });
     } else {
       // Add a new question
-      await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
+      response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
       });
     }
+
+    if (!response.ok) {
+      throw new Error('Failed to save question');
+    }
+
+    // Fetch updated list after successfully saving
     fetchQuestions();
   } catch (error) {
     console.error('Error saving question:', error);
