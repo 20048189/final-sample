@@ -54,5 +54,5 @@ app.delete('/api/questions/:index', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:3000/api/questions`);
+  console.log(`Server is running on https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/`);
 });
