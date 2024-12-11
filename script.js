@@ -37,36 +37,43 @@ async function fetchQuestions() {
   }
 }
 
-// Save a question (add or update)
-async function saveQuestion(question, index = null) {
+// Save question to server
+async function saveQuestion(question) {
   try {
-    let response;
-    if (index !== null) {
-      // Update an existing question
-      response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(question)
-      });
-    } else {
-      // Add a new question
-      response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(question)
-      });
-    }
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(question),
+    });
 
     if (!response.ok) {
-      throw new Error('Failed to save question');
+      throw new Error(`Failed to save question: ${response.statusText}`);
     }
 
-    // Fetch updated list after successfully saving
-    fetchQuestions();
+    const savedQuestion = await response.json();
+    console.log('Question saved successfully:', savedQuestion);
+    fetchQuestions(); // Refresh questions after saving
   } catch (error) {
     console.error('Error saving question:', error);
   }
 }
+
+// Fetch and display questions
+async function fetchQuestions() {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch questions: ${response.statusText}`);
+    }
+    questions = await response.json();
+    displayQuestions();
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+  }
+}
+
+
+ 
 
 // Delete a question
 async function deleteQuestion(index) {
