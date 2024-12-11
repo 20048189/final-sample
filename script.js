@@ -29,7 +29,7 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch('http://localhost:3000/api/questions');
     questions = await response.json();
     loadQuestions();
   } catch (error) {
@@ -42,14 +42,14 @@ async function saveQuestion(question, index = null) {
   try {
     if (index !== null) {
       // Update an existing question
-      await fetch(`${API_URL}/${index}`, {
+      await fetch(`${'http://localhost:3000/api/questions'}/${index}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
       });
     } else {
       // Add a new question
-      await fetch(API_URL, {
+      await fetch('http://localhost:3000/api/questions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
@@ -64,7 +64,7 @@ async function saveQuestion(question, index = null) {
 // Delete a question
 async function deleteQuestion(index) {
   try {
-    await fetch(`${API_URL}/${index}`, { method: 'DELETE' });
+    await fetch(`${'http://localhost:3000/api/questions'}/${index}`, { method: 'DELETE' });
     fetchQuestions();
   } catch (error) {
     console.error('Error deleting question:', error);
