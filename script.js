@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api/questions'; // Change this URL if your server runs on a different address
+const API_URL = 'https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/'; // Change this URL if your server runs on a different address
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
@@ -29,7 +29,7 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
-    const response = await fetch('http://localhost:3000/api/questions');
+    const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/');
     questions = await response.json();
     loadQuestions();
   } catch (error) {
@@ -42,14 +42,14 @@ async function saveQuestion(question, index = null) {
   try {
     if (index !== null) {
       // Update an existing question
-      await fetch('http://localhost:3000/api/questions', {
+      await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
       });
     } else {
       // Add a new question
-      await fetch('http://localhost:3000/api/questions', {
+      await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(question)
@@ -64,7 +64,7 @@ async function saveQuestion(question, index = null) {
 // Delete a question
 async function deleteQuestion(index) {
   try {
-    await fetch('http://localhost:3000/api/questions', { method: 'DELETE' });
+    await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', { method: 'DELETE' });
     fetchQuestions();
   } catch (error) {
     console.error('Error deleting question:', error);
