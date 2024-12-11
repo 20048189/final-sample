@@ -1,9 +1,17 @@
 let questions = JSON.parse(localStorage.getItem("questions")) || [];
+const API_URL = 'http://localhost:3000/api/questions'; // Base API URL
+
 async function loadQuestions() {
-  const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/');
-  questions = await response.json();
-  displayQuestions();
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error(`Failed to fetch questions: ${response.status}`);
+    questions = await response.json();
+    displayQuestions(); // Display questions on the page
+  } catch (error) {
+    console.error(error.message);
+  }
 }
+
 async function addQuestion(newQuestion) {
   await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
     method: 'POST',
