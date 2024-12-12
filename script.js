@@ -258,3 +258,6 @@ showQuestionsButton.addEventListener('click', showAllQuestions);
 
 // Fetch questions initially
 fetchQuestions();
+
+// Initial Setup
+loadQuestions();
