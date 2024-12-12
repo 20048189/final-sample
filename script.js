@@ -38,38 +38,62 @@ async function fetchQuestions() {
 }
 
 // Save question to server
-async function saveQuestion(questions) {
+async function saveQuestion(question) {
   try {
-    const response = await fetch('http://localhost:3000', {
+    const response = await fetch('http://localhost:3000/api/questions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(questions),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(question),
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to save question: ${response.statusText}`);
+      throw new Error('Failed to save question');
     }
 
-    const savedQuestion = await response.json();
-    console.log('Question saved successfully:', savedQuestion);
-    fetchQuestions(); // Refresh questions after saving
+    const result = await response.json();
+    console.log('Question saved:', result);
+    fetchQuestions(); // Refresh the question list
   } catch (error) {
     console.error('Error saving question:', error);
   }
 }
 
+
 // Fetch and display questions
 async function fetchQuestions() {
   try {
-    const response = await fetch('http://localhost:3000');
+    const response = await fetch('http://localhost:3000/api/questions');
     if (!response.ok) {
-      throw new Error(`Failed to fetch questions: ${response.statusText}`);
+      throw new Error('Failed to fetch questions');
     }
-    questions = await response.json();
-    displayQuestions();
+    const questions = await response.json();
+    displayQuestions(questions);
   } catch (error) {
     console.error('Error fetching questions:', error);
   }
+}
+
+function displayQuestions(questions) {
+  const questionList = document.getElementById('question-list');
+  questionList.innerHTML = '';
+
+  questions.forEach((question, index) => {
+    const questionItem = document.createElement('div');
+    questionItem.innerHTML = `
+      <strong>${index + 1}. ${question.question}</strong>
+      ${question.answers
+        .map(
+          (answer, i) =>
+            `<div>Answer ${i + 1}: ${answer.text} ${
+              answer.correct ? '(Correct)' : ''
+            }</div>`
+        )
+        .join('')}
+    `;
+    questionList.appendChild(questionItem);
+  });
 }
 
 
