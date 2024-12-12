@@ -40,6 +40,7 @@ async function fetchQuestions() {
 
 // Save question to server
 async function saveQuestion(question) {
+  localStorage.setItem("questions", JSON.stringify(questions));
   try {
     const response = await fetch('http://localhost:3000', {
       method: 'POST',
