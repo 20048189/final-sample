@@ -29,7 +29,7 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
-    const response = await fetch(`${API_URL}/api/questions`);
+    const response = await fetch(`http://localhost:3000/api/questions`);
     questions = await response.json();
     loadQuestions();
   } catch (error) {
@@ -40,7 +40,7 @@ async function fetchQuestions() {
 // Save question to server
 async function saveQuestion(question) {
   try {
-    const response = await fetch(`${API_URL}/api/questions`, {
+    const response = await fetch(`http://localhost:3000/api/questions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ async function saveQuestion(question) {
 // Delete a question
 async function deleteQuestion(index) {
   try {
-    const response = await fetch(`${API_URL}/api/questions/${index}`, { method: 'DELETE' });
+    const response = await fetch(`http://localhost:3000/api/questions`, { method: 'DELETE' });
     if (response.ok) {
       fetchQuestions(); // Refresh the question list after deletion
     } else {
