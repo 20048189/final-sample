@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 const path = require('path');
-const DATA_FILE = path.join(__dirname, 'questions.json');  // Using an absolute path
+const DATA_FILE = path.join('questions.json');  // Using an absolute path
 
 
 
