@@ -1,5 +1,5 @@
 const API_URL = 'http://localhost:3000'; // Change this URL if your server runs on a different address
-let questions = JSON.parse(localStorage.getItem("questions")) || [];
+let questions =  [];
 let currentQuestionIndex = 0;
 let score = 0;
 let editingIndex = null;
@@ -40,7 +40,6 @@ async function fetchQuestions() {
 
 // Save question to server
 async function saveQuestion(question) {
-  localStorage.setItem("questions", JSON.stringify(questions));
   try {
     const response = await fetch('http://localhost:3000', {
       method: 'POST',
