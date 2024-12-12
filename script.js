@@ -40,7 +40,7 @@ async function fetchQuestions() {
 // Save question to server
 async function saveQuestion(question) {
   try {
-    const response = await fetch('http://localhost:3000/api/questions', {
+    const response = await fetch('http://localhost:3000', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,7 +64,7 @@ async function saveQuestion(question) {
 // Fetch and display questions
 async function fetchQuestions() {
   try {
-    const response = await fetch('http://localhost:3000/api/questions');
+    const response = await fetch('http://localhost:3000');
     if (!response.ok) {
       throw new Error('Failed to fetch questions');
     }
