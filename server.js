@@ -53,10 +53,7 @@ app.post('/api/questions', async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:3000`);
-});
+
 
 
 // Update a question (asynchronous)
