@@ -32,62 +32,6 @@ app.get('/api/questions', async (req, res) => {
 });
 
 // Add a new question (asynchronous)
-app.post('/api/questions', async (req, res) => {
-  try {
-    // Log the incoming request to ensure data is being sent
-    console.log('Received request body:', req.body);
-
-    // Read the current file content
-    const data = await fs.readFile(DATA_FILE, 'utf-8');
-    let questions = JSON.parse(data || '[]');
-
-    // Log the current questions array before modification
-    console.log('Current questions in file:', questions);
-
-    // Add the new question to the list
-    questions.push(req.body);
-
-    // Log the updated questions array before writing to the file
-    console.log('Updated questions to write:', questions);
-
-    // Write the updated questions array to the file
-    await fs.writeFile(DATA_FILE, JSON.stringify(questions, null, 2));  
-    console.log('Questions successfully saved to file.');
-
-    res.status(201).json(req.body);  // Respond with the new question
-  } catch (error) {
-    console.error('Error writing to file:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:3000`);
-});
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Root route to check if the server is running
-app.get('/', (req, res) => {
-  res.send('Quiz API is running!');
-});
-
-// Get all questions (asynchronous)
-app.get('/api/questions', async (req, res) => {
-  try {
-    const data = await fs.readFile(DATA_FILE, 'utf-8');  // Asynchronously read file
-    const questions = JSON.parse(data || '[]');
-    res.json(questions);
-  } catch (error) {
-    console.error('Error reading file:', error);
-    res.status(500).send('Internal Server Error');
-  }
-});
-
-// Add a new question (asynchronous)
 // Add a new question (asynchronous)
 app.post('/api/questions', async (req, res) => {
   try {
