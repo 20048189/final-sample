@@ -29,6 +29,9 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 
 
 // Function to add a new question
+
+
+// Function to add a new question
 async function addQuestion(newQuestion) {
   try {
     console.log("New Question:", newQuestion);  // Log the new question
@@ -102,6 +105,7 @@ async function fetchQuestions() {
 
 // Call fetchQuestions when the page loads to show existing questions
 fetchQuestions();
+
 
 // Fetch all questions from the server
 async function fetchQuestions() {
