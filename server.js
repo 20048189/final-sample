@@ -1,63 +1,67 @@
 const express = require('express');
-const fs = require('fs');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
-const DATA_FILE = 'questions.json';
 
 // Middleware
+app.use(bodyParser.json());
 app.use(cors());
-app.use(express.json());
 
-// Root route to check if the server is running
-app.get('/', (req, res) => {
-  res.send('Quiz API is running!');
+// MongoDB connection
+mongoose.connect('mongodb://127.0.0.1:27017/quiz', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
+
+// Define Question Schema
+const questionSchema = new mongoose.Schema({
+  question: String,
+  answers: [
+    {
+      text: String,
+      correct: Boolean,
+    },
+  ],
+});
+
+// Create Model
+const Question = mongoose.model('Question', questionSchema);
+
+// API Endpoints
+
+// Add a new question
+app.post('/api/questions', async (req, res) => {
+  try {
+    const question = new Question(req.body);
+    await question.save();
+    res.status(201).json({ message: 'Question added successfully', question });
+  } catch (error) {
+    console.error('Error adding question:', error);
+    res.status(500).json({ error: 'Failed to add question' });
+  }
 });
 
 // Get all questions
-app.get('/api/questions', (req, res) => {
-  const questions = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8') || '[]');
-  res.json(questions);
-});
-
-// Add a new question
-app.post('/api/questions', (req, res) => {
-  const question = req.body;
-  if (!question) {
-    return res.status(400).json({ error: 'Invalid question data' });
-  }
-  questions.push(question);
-  res.status(201).json({ message: 'Question added successfully', question });
-});
-
-// Update a question
-app.put('/api/questions/:index', (req, res) => {
-  const questions = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8') || '[]');
-  const index = parseInt(req.params.index, 10);
-  if (index >= 0 && index < questions.length) {
-    questions[index] = req.body;
-    fs.writeFileSync(DATA_FILE, JSON.stringify(questions, null, 2));
-    res.json(req.body);
-  } else {
-    res.status(404).send('Question not found');
-  }
-});
-
-// Delete a question
-app.delete('/api/questions/:index', (req, res) => {
-  const questions = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8') || '[]');
-  const index = parseInt(req.params.index, 10);
-  if (index >= 0 && index < questions.length) {
-    const deleted = questions.splice(index, 1);
-    fs.writeFileSync(DATA_FILE, JSON.stringify(questions, null, 2));
-    res.json(deleted);
-  } else {
-    res.status(404).send('Question not found');
+app.get('/api/questions', async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    res.status(500).json({ error: 'Failed to fetch questions' });
   }
 });
 
 // Start the server
+const PORT = 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:3000`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
