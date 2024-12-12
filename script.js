@@ -38,12 +38,12 @@ async function fetchQuestions() {
 }
 
 // Save question to server
-async function saveQuestion(question) {
+async function saveQuestion(questions) {
   try {
     const response = await fetch('https://stunning-tribble-wrgvg6vx69r525579-3000.app.github.dev/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(question),
+      body: JSON.stringify(questions),
     });
 
     if (!response.ok) {
