@@ -37,6 +37,26 @@ async function fetchQuestions() {
     console.error('Error fetching questions:', error);
   }
 }
+// Example of adding a question and then fetching the updated list
+async function addQuestion(newQuestion) {
+  try {
+    // Send POST request to add the new question
+    await fetch('http://localhost:3000/api/questions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newQuestion),
+    });
+
+    // Fetch the updated list of questions
+    const response = await fetch('http://localhost:3000/api/questions');
+    const updatedQuestions = await response.json();
+
+    // Now update the UI with the updated list
+    displayQuestions(updatedQuestions);
+  } catch (error) {
+    console.error('Error adding question:', error);
+  }
+}
 
 // Save question to server
 async function saveQuestion(question) {
