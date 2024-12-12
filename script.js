@@ -162,7 +162,7 @@ function startQuiz() {
   nextButton.classList.remove('hidden');
   showQuestion();
 }
-const showQuestionsButton = document.getElementById('showQuestionsButton'); // Make sure this is the correct button ID
+
 
 showQuestionsButton.addEventListener('click', async () => {
   try {
