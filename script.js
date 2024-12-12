@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000'; // Change this URL if your server runs on a different address
+const API_URL = 'http://localhost:3000'; // Adjust this URL based on your server's address
 let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
@@ -26,88 +26,7 @@ const mainPage = document.getElementById('main-page');
 const backToMainPageButton = document.getElementById('back-to-main-page-btn');
 const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-main-page-from-show-questions-btn');
 
-
-
-// Function to add a new question
-
-
-// Function to add a new question
-async function addQuestion(newQuestion) {
-  try {
-    console.log("New Question:", newQuestion);  // Log the new question
-
-    // Send POST request to add the new question
-    const response = await fetch(`http://localhost:3000/api/questions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newQuestion),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to add question');
-    }
-
-    // Fetch the updated list of questions after adding
-    const updatedQuestions = await response.json();
-    console.log('Updated Questions:', updatedQuestions);
-
-    // Now update the UI with the updated list of questions
-    displayQuestions(updatedQuestions);
-  } catch (error) {
-    console.error('Error adding question:', error);
-  }
-}
-
-// Display all questions in the UI
-function displayQuestions(questions) {
-  const questionList = document.getElementById('question-list');
-  questionList.innerHTML = '';  // Clear the existing list
-
-  questions.forEach((question, index) => {
-    const questionItem = document.createElement('div');
-    questionItem.innerHTML = `
-      <strong>${index + 1}. ${question.question}</strong>
-      ${question.answers.map((answer, i) => `<div>Answer ${i + 1}: ${answer.text} ${answer.correct ? '(Correct)' : ''}</div>`).join('')}
-    `;
-    questionList.appendChild(questionItem);
-  });
-}
-
-// Event listener for form submission
-document.getElementById('question-form').addEventListener('submit', (event) => {
-  event.preventDefault();
-  
-  // Get the question and answers from the form
-  const newQuestion = {
-    question: document.getElementById('question-text').value,
-    answers: [
-      { text: document.getElementById('answer1').value, correct: document.getElementById('correct-answer').value === '1' },
-      { text: document.getElementById('answer2').value, correct: document.getElementById('correct-answer').value === '2' },
-      { text: document.getElementById('answer3').value, correct: document.getElementById('correct-answer').value === '3' },
-      { text: document.getElementById('answer4').value, correct: document.getElementById('correct-answer').value === '4' },
-    ],
-  };
-  
-  // Add the new question
-  addQuestion(newQuestion);
-});
-
-// Fetch and display all questions when the page loads
-async function fetchQuestions() {
-  try {
-    const response = await fetch(`http://localhost:3000/api/questions`);
-    const questions = await response.json();
-    displayQuestions(questions);
-  } catch (error) {
-    console.error('Error fetching questions:', error);
-  }
-}
-
-// Call fetchQuestions when the page loads to show existing questions
-fetchQuestions();
-
-
-// Fetch all questions from the server
+// Fetch questions from the server
 async function fetchQuestions() {
   try {
     const response = await fetch(`http://localhost:3000/api/questions`);
@@ -118,46 +37,9 @@ async function fetchQuestions() {
   }
 }
 
-// Save question to server
-async function saveQuestion(question) {
-  try {
-    const response = await fetch(`http://localhost:3000/api/questions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(question),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to save question');
-    }
-
-    const result = await response.json();
-    console.log('Question saved:', result);
-    fetchQuestions(); // Refresh the question list
-  } catch (error) {
-    console.error('Error saving question:', error);
-  }
-}
-
-// Delete a question
-async function deleteQuestion(index) {
-  try {
-    const response = await fetch(`http://localhost:3000/api/questions`, { method: 'DELETE' });
-    if (response.ok) {
-      fetchQuestions(); // Refresh the question list after deletion
-    } else {
-      console.error('Failed to delete question');
-    }
-  } catch (error) {
-    console.error('Error deleting question:', error);
-  }
-}
-
 // Load questions into the UI
 function loadQuestions() {
-  questionList.innerHTML = '';
+  questionList.innerHTML = '';  // Clear the existing list
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
     questionItem.classList.add('question-item');
@@ -171,6 +53,53 @@ function loadQuestions() {
   });
 }
 
+// Save or update a question
+async function saveQuestion(question) {
+  try {
+    const response = editingIndex === null
+      ? await fetch(`http://localhost:3000/api/questions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(question)
+        })
+      : await fetch(`http://localhost:3000/api/questions/${editingIndex}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(question)
+        });
+
+    if (!response.ok) throw new Error('Failed to save question');
+    await fetchQuestions();  // Refresh the question list
+    editingIndex = null;
+  } catch (error) {
+    console.error('Error saving question:', error);
+  }
+}
+
+// Delete a question
+async function deleteQuestion(index) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/questions/${index}`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) throw new Error('Failed to delete question');
+    await fetchQuestions();  // Refresh the question list
+  } catch (error) {
+    console.error('Error deleting question:', error);
+  }
+}
+
+// Edit a question
+function editQuestion(index) {
+  const question = questions[index];
+  questionText.value = question.question;
+  question.answers.forEach((answer, i) => {
+    answerInputs[i].value = answer.text;
+  });
+  correctAnswerSelect.value = question.answers.findIndex(a => a.correct) + 1;
+  editingIndex = index;
+}
+
 // Add or update a question
 questionForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -182,19 +111,8 @@ questionForm.addEventListener('submit', (event) => {
     }))
   };
   saveQuestion(newQuestion);
-  questionForm.reset(); // Reset the form after submission
+  questionForm.reset();  // Reset the form after submission
 });
-
-// Edit a question
-function editQuestion(index) {
-  const question = questions[index];
-  questionText.value = question.question;
-  question.answers.forEach((answer, i) => {
-    answerInputs[i].value = answer.text;
-    if (answer.correct) correctAnswerSelect.value = i + 1;
-  });
-  editingIndex = index;
-}
 
 // Start the quiz
 function startQuiz() {
@@ -279,7 +197,7 @@ nextButton.addEventListener('click', () => {
 startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
-showQuestionsButton.addEventListener('click', showAllQuestions);
+showQuestionsButton.addEventListener('click', fetchQuestions);
 
 // Fetch questions initially
 fetchQuestions();
