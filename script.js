@@ -1,8 +1,9 @@
 const API_URL = 'http://localhost:3000'; // Change this URL if your server runs on a different address
-let questions = [];
+let questions = JSON.parse(localStorage.getItem("questions")) || [];
 let currentQuestionIndex = 0;
 let score = 0;
 let editingIndex = null;
+
 
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
