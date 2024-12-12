@@ -162,6 +162,32 @@ function startQuiz() {
   nextButton.classList.remove('hidden');
   showQuestion();
 }
+const showQuestionsButton = document.getElementById('showQuestionsButton'); // Make sure this is the correct button ID
+
+showQuestionsButton.addEventListener('click', async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/questions');
+    const questions = await response.json();
+
+    console.log('Questions:', questions);  // Log the fetched questions to check the response
+    // Display the questions on the page (this depends on your HTML structure)
+    displayQuestions(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+  }
+});
+
+function displayQuestions(questions) {
+  const questionsContainer = document.getElementById('questionsContainer'); // The container where questions will be displayed
+  questionsContainer.innerHTML = ''; // Clear any existing content
+
+  questions.forEach((question, index) => {
+    const questionElement = document.createElement('div');
+    questionElement.classList.add('question');
+    questionElement.innerHTML = `<p>${question.question}</p>`;
+    questionsContainer.appendChild(questionElement);
+  });
+}
 
 // Show the current question
 function showQuestion() {
