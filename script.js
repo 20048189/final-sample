@@ -29,7 +29,7 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 async function addQuestion(newQuestion) {
   try {
     // Send POST request to add the new question
-    const response = await fetch(`http://localhost:3000/api/questions`, {
+    const response = await fetch('http://localhost:3000/api/questions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newQuestion),
