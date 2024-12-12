@@ -52,6 +52,40 @@ function loadQuestions() {
     questionList.appendChild(questionItem);
   });
 }
+// Function to display all questions
+function showAllQuestions() {
+  // Fetch all questions from the server
+  fetchQuestions();
+  // Toggle the UI visibility (showing questions list page)
+  mainPage.classList.add('hidden');
+  questionList.classList.remove('hidden');
+}
+
+// Fetch all questions from the server
+async function fetchQuestions() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/questions`);
+    const questions = await response.json();
+    displayQuestions(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+  }
+}
+
+// Display all questions in the UI
+function displayQuestions(questions) {
+  const questionList = document.getElementById('question-list');
+  questionList.innerHTML = '';  // Clear the existing list
+
+  questions.forEach((question, index) => {
+    const questionItem = document.createElement('div');
+    questionItem.innerHTML = `
+      <strong>${index + 1}. ${question.question}</strong>
+      ${question.answers.map((answer, i) => `<div>Answer ${i + 1}: ${answer.text} ${answer.correct ? '(Correct)' : ''}</div>`).join('')}
+    `;
+    questionList.appendChild(questionItem);
+  });
+}
 
 // Save or update a question
 async function saveQuestion(question) {
@@ -198,6 +232,8 @@ startQuizButton.addEventListener('click', startQuiz);
 backToMainPageButton.addEventListener('click', goBackToMainPage);
 backToMainPageFromShowQuestionsButton.addEventListener('click', goBackToMainPageFromShowQuestions);
 showQuestionsButton.addEventListener('click', fetchQuestions);
+showQuestionsButton.addEventListener('click', showAllQuestions);
+
 
 // Fetch questions initially
 fetchQuestions();
