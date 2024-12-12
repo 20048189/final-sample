@@ -28,6 +28,7 @@ app.get('/api/questions', async (req, res) => {
 });
 
 // Add a new question (asynchronous)
+// Add a new question (asynchronous)
 app.post('/api/questions', async (req, res) => {
   try {
     // Log the incoming request to ensure data is being sent
@@ -56,6 +57,7 @@ app.post('/api/questions', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
 
 // Update a question (asynchronous)
 app.put('/api/questions/:index', async (req, res) => {
