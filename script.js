@@ -1,9 +1,8 @@
 const API_URL = 'http://localhost:3000'; // Change this URL if your server runs on a different address
-let questions =  [];
+let questions = [];
 let currentQuestionIndex = 0;
 let score = 0;
 let editingIndex = null;
-
 
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
@@ -30,38 +29,18 @@ const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-m
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
-    const response = await fetch('http://localhost:3000');
+    const response = await fetch(`${API_URL}/api/questions`);
     questions = await response.json();
     loadQuestions();
   } catch (error) {
     console.error('Error fetching questions:', error);
   }
 }
-// Example of adding a question and then fetching the updated list
-async function addQuestion(newQuestion) {
-  try {
-    // Send POST request to add the new question
-    await fetch('http://localhost:3000/api/questions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newQuestion),
-    });
-
-    // Fetch the updated list of questions
-    const response = await fetch('http://localhost:3000/api/questions');
-    const updatedQuestions = await response.json();
-
-    // Now update the UI with the updated list
-    displayQuestions(updatedQuestions);
-  } catch (error) {
-    console.error('Error adding question:', error);
-  }
-}
 
 // Save question to server
 async function saveQuestion(question) {
   try {
-    const response = await fetch('http://localhost:3000', {
+    const response = await fetch(`${API_URL}/api/questions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,50 +60,15 @@ async function saveQuestion(question) {
   }
 }
 
-
-// Fetch and display questions
-async function fetchQuestions() {
-  try {
-    const response = await fetch('http://localhost:3000');
-    if (!response.ok) {
-      throw new Error('Failed to fetch questions');
-    }
-    const questions = await response.json();
-    displayQuestions(questions);
-  } catch (error) {
-    console.error('Error fetching questions:', error);
-  }
-}
-
-function displayQuestions(questions) {
-  const questionList = document.getElementById('question-list');
-  questionList.innerHTML = '';
-
-  questions.forEach((question, index) => {
-    const questionItem = document.createElement('div');
-    questionItem.innerHTML = `
-      <strong>${index + 1}. ${question.question}</strong>
-      ${question.answers
-        .map(
-          (answer, i) =>
-            `<div>Answer ${i + 1}: ${answer.text} ${
-              answer.correct ? '(Correct)' : ''
-            }</div>`
-        )
-        .join('')}
-    `;
-    questionList.appendChild(questionItem);
-  });
-}
-
-
- 
-
 // Delete a question
 async function deleteQuestion(index) {
   try {
-    await fetch('http://localhost:3000', { method: 'DELETE' });
-    fetchQuestions();
+    const response = await fetch(`${API_URL}/api/questions/${index}`, { method: 'DELETE' });
+    if (response.ok) {
+      fetchQuestions(); // Refresh the question list after deletion
+    } else {
+      console.error('Failed to delete question');
+    }
   } catch (error) {
     console.error('Error deleting question:', error);
   }
@@ -146,24 +90,6 @@ function loadQuestions() {
   });
 }
 
-// Show all questions
-function showAllQuestions() {
-  questionList.classList.remove('hidden');
-  showQuestionsButton.classList.add('hidden');
-  backToMainPageFromShowQuestionsButton.classList.remove('hidden');
-  questionForm.classList.add('hidden');
-  startQuizButton.classList.add('hidden');
-}
-
-// Go back to the main page from Show Questions
-function goBackToMainPageFromShowQuestions() {
-  questionList.classList.add('hidden');
-  showQuestionsButton.classList.remove('hidden');
-  backToMainPageFromShowQuestionsButton.classList.add('hidden');
-  questionForm.classList.remove('hidden');
-  startQuizButton.classList.remove('hidden');
-}
-
 // Add or update a question
 questionForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -174,9 +100,8 @@ questionForm.addEventListener('submit', (event) => {
       correct: i + 1 == correctAnswerSelect.value
     }))
   };
-  saveQuestion(newQuestion, editingIndex);
-  editingIndex = null;
-  questionForm.reset();
+  saveQuestion(newQuestion);
+  questionForm.reset(); // Reset the form after submission
 });
 
 // Edit a question
@@ -277,6 +202,3 @@ showQuestionsButton.addEventListener('click', showAllQuestions);
 
 // Fetch questions initially
 fetchQuestions();
-
-// Initial Setup
-loadQuestions();
