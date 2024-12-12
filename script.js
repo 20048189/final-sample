@@ -48,7 +48,20 @@ async function addQuestion(newQuestion) {
     console.error('Error adding question:', error);
   }
 }
+// Display all questions in the UI
+function displayQuestions(questions) {
+  const questionList = document.getElementById('question-list');
+  questionList.innerHTML = '';
 
+  questions.forEach((question, index) => {
+    const questionItem = document.createElement('div');
+    questionItem.innerHTML = `
+      <strong>${index + 1}. ${question.question}</strong>
+      ${question.answers.map((answer, i) => `<div>Answer ${i + 1}: ${answer.text} ${answer.correct ? '(Correct)' : ''}</div>`).join('')}
+    `;
+    questionList.appendChild(questionItem);
+  });
+}
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
