@@ -4,7 +4,10 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE = './questions.json';
+
+const path = require('path');
+const DATA_FILE = path.join(__dirname, 'questions.json');  // Using an absolute path
+
 
 // Middleware
 app.use(cors());
