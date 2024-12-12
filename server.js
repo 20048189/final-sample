@@ -30,18 +30,32 @@ app.get('/api/questions', async (req, res) => {
 // Add a new question (asynchronous)
 app.post('/api/questions', async (req, res) => {
   try {
-    const data = await fs.readFile(DATA_FILE, 'utf-8');
+    // Read the current file content
+    const data = await fs.readFile(DATA_FILE, 'utf-8');  
     const questions = JSON.parse(data || '[]');
+    
+    // Log to check what is being added
+    console.log('New question to add:', req.body);
+    
+    // Add the new question to the list
     questions.push(req.body);
     
-    console.log('Updated questions:', questions); // Log the updated list of questions
+    // Log the updated questions array before writing to the file
+    console.log('Updated questions:', questions);
+    
+    // Write the updated questions array to the file
+    await fs.writeFile(DATA_FILE, JSON.stringify(questions, null, 2));  
 
-    await fs.writeFile(DATA_FILE, JSON.stringify(questions, null, 2));
-    res.status(201).json(req.body);
+    res.status(201).json(req.body);  // Respond with the new question
   } catch (error) {
     console.error('Error writing to file:', error);
     res.status(500).send('Internal Server Error');
   }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:3000`);
 });
 
 
