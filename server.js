@@ -8,7 +8,7 @@ const PORT = 3000;
 const path = require('path');
 const DATA_FILE = path.join(__dirname, 'questions.json');  // Using an absolute path
 
-const express = require('express');
+
 const fs = require('fs').promises;  // Using fs.promises for asynchronous file operations
 const cors = require('cors');
 
