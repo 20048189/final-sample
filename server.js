@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE = './questions.json';
+const DATA_FILE = 'questions.json';
 
 // Middleware
 app.use(cors());
