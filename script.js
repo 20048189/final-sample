@@ -26,10 +26,15 @@ const mainPage = document.getElementById('main-page');
 const backToMainPageButton = document.getElementById('back-to-main-page-btn');
 const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-main-page-from-show-questions-btn');
 
+
+
+// Function to add a new question
 async function addQuestion(newQuestion) {
   try {
+    console.log("New Question:", newQuestion);  // Log the new question
+
     // Send POST request to add the new question
-    const response = await fetch('http://localhost:3000/api/questions', {
+    const response = await fetch(`http://localhost:3000/api/questions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newQuestion),
@@ -39,19 +44,21 @@ async function addQuestion(newQuestion) {
       throw new Error('Failed to add question');
     }
 
-    // Fetch the updated list of questions
+    // Fetch the updated list of questions after adding
     const updatedQuestions = await response.json();
+    console.log('Updated Questions:', updatedQuestions);
 
-    // Now update the UI with the updated list
+    // Now update the UI with the updated list of questions
     displayQuestions(updatedQuestions);
   } catch (error) {
     console.error('Error adding question:', error);
   }
 }
+
 // Display all questions in the UI
 function displayQuestions(questions) {
   const questionList = document.getElementById('question-list');
-  questionList.innerHTML = '';
+  questionList.innerHTML = '';  // Clear the existing list
 
   questions.forEach((question, index) => {
     const questionItem = document.createElement('div');
@@ -62,6 +69,40 @@ function displayQuestions(questions) {
     questionList.appendChild(questionItem);
   });
 }
+
+// Event listener for form submission
+document.getElementById('question-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  // Get the question and answers from the form
+  const newQuestion = {
+    question: document.getElementById('question-text').value,
+    answers: [
+      { text: document.getElementById('answer1').value, correct: document.getElementById('correct-answer').value === '1' },
+      { text: document.getElementById('answer2').value, correct: document.getElementById('correct-answer').value === '2' },
+      { text: document.getElementById('answer3').value, correct: document.getElementById('correct-answer').value === '3' },
+      { text: document.getElementById('answer4').value, correct: document.getElementById('correct-answer').value === '4' },
+    ],
+  };
+  
+  // Add the new question
+  addQuestion(newQuestion);
+});
+
+// Fetch and display all questions when the page loads
+async function fetchQuestions() {
+  try {
+    const response = await fetch(`http://localhost:3000/api/questions`);
+    const questions = await response.json();
+    displayQuestions(questions);
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+  }
+}
+
+// Call fetchQuestions when the page loads to show existing questions
+fetchQuestions();
+
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
