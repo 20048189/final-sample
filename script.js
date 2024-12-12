@@ -26,6 +26,29 @@ const mainPage = document.getElementById('main-page');
 const backToMainPageButton = document.getElementById('back-to-main-page-btn');
 const backToMainPageFromShowQuestionsButton = document.getElementById('back-to-main-page-from-show-questions-btn');
 
+async function addQuestion(newQuestion) {
+  try {
+    // Send POST request to add the new question
+    const response = await fetch(`${API_URL}/api/questions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newQuestion),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add question');
+    }
+
+    // Fetch the updated list of questions
+    const updatedQuestions = await response.json();
+
+    // Now update the UI with the updated list
+    displayQuestions(updatedQuestions);
+  } catch (error) {
+    console.error('Error adding question:', error);
+  }
+}
+
 // Fetch all questions from the server
 async function fetchQuestions() {
   try {
